@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+
 import convert    from './index.js'
 import { expect } from 'chai'
 

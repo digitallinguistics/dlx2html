@@ -28,7 +28,9 @@
     "test": "mocha tests.js"
   },
   "devDependencies": {
+    "@digitallinguistics/eslint-config": "^0.2.0",
     "chai": "^4.3.7",
+    "eslint": "^8.29.0",
     "mocha": "^10.1.0"
   },
   "engines": {
