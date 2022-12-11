@@ -1,14 +1,12 @@
-/* eslint-env mocha */
+import convert from './index.js'
 
-import convert    from './index.js'
-import { expect } from 'chai'
+describe(`Cypress`, function() {
 
-describe(`scription2html`, function() {
-
-  it(`accepts a string and returns HTML`, function() {
-    const input  = ``
-    const result = convert(input)
-    expect(result).to.equal(input)
+  it(`mounts HTML`, function() {
+    const text = `This is an interlinear gloss.`
+    cy.mount(`<div class=igl>${ text }</div>`)
+    cy.get(`.igl`)
+    .should(`have.text`, text)
   })
 
 })
