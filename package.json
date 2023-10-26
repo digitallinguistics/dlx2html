@@ -13,7 +13,7 @@
   ],
   "homepage": "https://github.com/digitallinguistics/scription2html#readme",
   "bugs": "https://github.com/digitallinguistics/scription2html/issues",
-  "license": "ISC",
+  "license": "MIT",
   "author": {
     "name": "Daniel W. Hieber",
     "url": "https://danielhieber.info"
