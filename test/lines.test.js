@@ -32,26 +32,24 @@ describe(`lines`, function() {
 
   })
 
-  describe(`transcript`, function() {
+  it(`phonetic transcription`, function() {
 
-    it(`produces one line per orthography`, function() {
+    const phonetic = `ɔ́gɔ̀tɛ́ɛ́rɛ̀rà`
 
-      const { dom }     = parse(ChitimachaText)
-      const [ex]        = dom.childNodes
-      const transcripts = findElementsByClass(ex, `trs`)
+    const scription = `
+    \\phon ${ phonetic }
+    \\m    ó-ko-tɛ́ɛr-er-a
+    \\gl   pp-5-sing-appl-ind
+    `
 
-      expect(transcripts).to.have.length(2)
+    const { dom } = parse(scription)
+    const el      = findElementByClass(dom, `phon`)
 
-      const [mod, swad] = transcripts
-
-      expect(getAttribute(mod, `data-ortho`)).to.equal(`Modern`)
-      expect(getAttribute(swad, `data-ortho`)).to.equal(`Swadesh`)
-
-    })
+    expect(getTextContent(el)).to.equal(phonetic)
 
   })
 
-  describe(`transcription`, function() {
+  describe(`phonemic transcription`, function() {
 
     it(`produces one line per orthography`, function() {
 
@@ -143,6 +141,25 @@ describe(`lines`, function() {
       const text = getTextContent(source)
 
       expect(text).to.equal(`Hamisi (Hieber 2018: 1)`)
+
+    })
+
+  })
+
+  describe(`transcript`, function() {
+
+    it(`produces one line per orthography`, function() {
+
+      const { dom }     = parse(ChitimachaText)
+      const [ex]        = dom.childNodes
+      const transcripts = findElementsByClass(ex, `trs`)
+
+      expect(transcripts).to.have.length(2)
+
+      const [mod, swad] = transcripts
+
+      expect(getAttribute(mod, `data-ortho`)).to.equal(`Modern`)
+      expect(getAttribute(swad, `data-ortho`)).to.equal(`Swadesh`)
 
     })
 
