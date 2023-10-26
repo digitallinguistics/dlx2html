@@ -4,10 +4,18 @@ import { getTextContent }         from './node_modules/@web/parse5-utils/src/ind
 import { parseFragment as parse } from 'parse5'
 
 
-const sample = `ninaenda
+const swahili = `
+ninaenda
 ni-na-end-a
 1SG-PRES-go-IND
 I am going`
+
+const chiti = `
+waxdungu qasi
+waxt-qungu qasi
+day-one    man
+one day a man
+`
 
 describe(`scription2html`, function() {
 
@@ -28,7 +36,7 @@ describe(`scription2html`, function() {
     ---
     title: The title of this story
     ---
-    ${ sample }
+    ${ swahili }
     `
 
     const runTest = () => convert(input)
@@ -39,7 +47,7 @@ describe(`scription2html`, function() {
 
   it(`wraps utterances in <div class=igl> by default`, function() {
 
-    const output = convert(sample)
+    const output = convert(swahili)
     const dom    = parse(output)
 
     expect(dom.childNodes).to.have.length(1)
@@ -49,7 +57,7 @@ describe(`scription2html`, function() {
 
   it(`converts single utterances`, function() {
 
-    const output = convert(sample)
+    const output = convert(swahili)
     const dom    = parse(output)
 
     expect(dom.childNodes).to.have.length(1)
@@ -60,8 +68,25 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`converts multiple utterances`)
+  it(`converts multiple utterances`, function() {
 
-  it(`returns one tag per utterance`)
+    const output = convert(`${ swahili }\n\n${ chiti }`)
+    const dom    = parse(output)
+
+    expect(dom.childNodes).to.have.length(2)
+
+  })
+
+  it(`option: tag`, function() {
+
+    const tag    = `li`
+    const output = convert(swahili, { tag })
+    const dom    = parse(output)
+
+    const [ex] = dom.childNodes
+
+    expect(ex.tagName).to.equal(tag)
+
+  })
 
 })
