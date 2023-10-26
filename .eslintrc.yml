@@ -1,2 +1,6 @@
 extends:
   - '@digitallinguistics/eslint-config'
+  - 'plugin:mocha/recommended'
+
+plugins:
+  - mocha

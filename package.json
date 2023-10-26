@@ -25,15 +25,20 @@
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
   "scripts": {
-    "test": "mocha **/*.test.js"
+    "test": "mocha *.test.js"
   },
   "devDependencies": {
     "@digitallinguistics/eslint-config": "^0.3.0",
     "chai": "^4.3.10",
     "eslint": "^8.52.0",
-    "mocha": "^10.2.0"
+    "eslint-plugin-mocha": "^10.2.0",
+    "mocha": "^10.2.0",
+    "parse5": "^7.1.2"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@digitallinguistics/scription2dlx": "^0.12.3"
   }
 }
