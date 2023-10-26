@@ -1,0 +1,33 @@
+---
+title:        George Louie's life story
+abbreviation: GL
+ID:           GL1
+---
+
+# 001
+ʔuckʷiis             kinḥuuɬ.
+ʔu-ckʷi·-s           kinḥuːɬ
+he-remains.of-1SG    NAME
+I.am.a.descendent.of NAME
+I am a descendent of _kinḥuuɬ_.
+
+# 002
+ʔuckʷiis             kinḥuuɬ, ʔukčiiɬ                       kʷaatya, yaqukʷitii           ɬuucma, kʷaatya ʔukɬaa.
+ʔu-ckʷi·-s           kinḥuːɬ  ʔu-kči·-ʽiɬ                   kʷaːtya  yaq-ukʷ-it-(y)iː     ɬuːcma  kʷaːtya ʔu-kɬa·
+he-remains.of-1SG    NAME     he-together.with-in.the.house NAME     who-POSS-PAST-INDF.3 wife    NAME    it-having.as.name
+I.am.a.descendent.of NAME     together.inside               NAME     who.was.his          wife    NAME    being.named
+I am a descendent of _kinḥuuɬ_, who lived together with _kwaatya_, one who was his wife by the name of _kwaatya_.
+
+# 003
+ʔunaakʔaɬ    t̓aatn̓a.
+ʔu-na·k-ʔa·ɬ t̓aːtn̓a
+it-having-PL children
+they.have    children
+They had children.
+
+# 004
+ʔuḥ      m̓aam̓iiqsu,    [William Swan] ,
+ʔuḥ      m̓aːm̓i·qsu     ~
+being.he elder.brother ~
+being.he elder.brother ~
+The oldest son was Wi\l\liam Swan,

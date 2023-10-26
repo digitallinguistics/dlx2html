@@ -1,0 +1,9 @@
+---
+title:
+  en: Duenos Inscription
+abbreviation: duenos
+---
+\trs-prac iovesatdeivosqoimedmitatneitedendocosmisuircosied
+\trs-lat  𐌉𐌏𐌅𐌄𐌔𐌀𐌕𐌃𐌄𐌉𐌅𐌏𐌔𐌒𐌏𐌉𐌌𐌄𐌃𐌌𐌉𐌕𐌀𐌕𐌍𐌄𐌉𐌕𐌄𐌃𐌄𐌍𐌃𐌏𐌂𐌏𐌔𐌌𐌉𐌔V𐌉𐌓𐌂𐌏𐌔𐌉𐌄𐌃
+\tln-lat  Iurat deos qui me mittit, ni [erga te] comis virgo sit
+\tln-eng  The person who sends me prays to the gods, lest the girl be not kind towards thee

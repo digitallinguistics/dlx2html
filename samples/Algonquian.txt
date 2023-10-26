@@ -1,0 +1,31 @@
+# Menominee
+\txn pemētaehkipew
+\m   paemet-aehkw-ape
+\gl  crosswise-face-sit
+\gl  initial-medial-final
+\tln S/he sits sideways.
+\s   (Bloomfield 1975: 208)
+
+# SW Ojibwe
+ozhaashisagaa
+ozhaash-sag-aa
+slippery-floor-stat
+initial-medial-final
+It is a slippery floor.
+(Nichols 2015)
+
+# Delaware
+kwənaskwat
+kwən-askw-at
+long-grass-inan
+initial-medial-final
+It is long grass.
+(O'Meara 1990: 250)
+
+# Blackfoot
+sisáápittakit
+siso-ap-ittaki
+cut-stringlike-by.blade
+initial-medial-final
+shred (the hide) into strips
+(Frantz & Genee 2015)
