@@ -1,10 +1,10 @@
 # Menominee
-\txn pemētaehkipew
-\m   paemet-aehkw-ape
-\gl  crosswise-face-sit
-\gl  initial-medial-final
-\tln S/he sits sideways.
-\s   (Bloomfield 1975: 208)
+\txn   pemētaehkipew
+\m     paemet-aehkw-ape
+\gl    crosswise-face-sit
+\gl-en initial-medial-final
+\tln   S/he sits sideways.
+\s     (Bloomfield 1975: 208)
 
 # SW Ojibwe
 ozhaashisagaa

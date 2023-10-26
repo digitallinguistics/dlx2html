@@ -26,7 +26,7 @@
   },
   "exports": "./index.js",
   "scripts": {
-    "build": "esbuild --bundle --minify --outfile=scription2html.js index.js",
+    "build": "node build/index.js",
     "stop-only": "stop-only --folder . --skip node_modules,.github",
     "test": "mocha *.test.js"
   },
