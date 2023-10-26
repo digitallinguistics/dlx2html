@@ -20,14 +20,14 @@ one day a man
 describe(`scription2html`, function() {
 
   it(`no input → empty string`, function() {
-    const output = convert()
-    expect(output).to.equal(``)
+    const result = convert()
+    expect(result).to.equal(null)
   })
 
   it(`whitespace → empty string`, function() {
-    const input  = `  `
-    const output = convert(input)
-    expect(output).to.equal(``)
+    const input    = `  `
+    const { html } = convert(input)
+    expect(html).to.equal(``)
   })
 
   it(`ignores the YAML header`, function() {
@@ -45,10 +45,15 @@ describe(`scription2html`, function() {
 
   })
 
+  it(`can access the underlying data`, function() {
+    const { data } = convert(swahili)
+    expect(data.utterances).to.have.length(1)
+  })
+
   it(`wraps utterances in <div class=igl> by default`, function() {
 
-    const output = convert(swahili)
-    const dom    = parse(output)
+    const { html } = convert(swahili)
+    const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(1)
     expect(dom.childNodes[0].tagName).to.equal(`div`)
@@ -57,8 +62,8 @@ describe(`scription2html`, function() {
 
   it(`converts single utterances`, function() {
 
-    const output = convert(swahili)
-    const dom    = parse(output)
+    const { html } = convert(swahili)
+    const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(1)
 
@@ -70,8 +75,8 @@ describe(`scription2html`, function() {
 
   it(`converts multiple utterances`, function() {
 
-    const output = convert(`${ swahili }\n\n${ chiti }`)
-    const dom    = parse(output)
+    const { html } = convert(`${ swahili }\n\n${ chiti }`)
+    const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(2)
 
@@ -79,13 +84,23 @@ describe(`scription2html`, function() {
 
   it(`option: tag`, function() {
 
-    const tag    = `li`
-    const output = convert(swahili, { tag })
-    const dom    = parse(output)
-
-    const [ex] = dom.childNodes
+    const tag      = `li`
+    const { html } = convert(swahili, { tag })
+    const dom      = parse(html)
+    const [ex]     = dom.childNodes
 
     expect(ex.tagName).to.equal(tag)
+
+  })
+
+  it(`option: scription`, function() {
+
+    const scription   = { utteranceMetadata: false }
+    const text        = `# This is some metadata.${ swahili }`
+    const { data }    = convert(text, { scription })
+    const [utterance] = data.utterances
+
+    expect(utterance.metadata).to.be.undefined
 
   })
 

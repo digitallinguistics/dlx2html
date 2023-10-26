@@ -5,22 +5,22 @@ function convertUtterance(u, { tag }) {
 }
 
 const defaultOptions = {
-  tag: `div`,
+  scription: {},
+  tag:       `div`,
 }
 
 export default function scription2html(input, userOptions = {}) {
 
-  if (!input) return ``
+  if (!input) return null
 
   const trimmed = input.trim()
 
-  if (!trimmed) return ``
-
-  // Ignore the YAML header.
-  const { utterances } = convert(input)
+  if (!trimmed) return { data: {}, html: `` }
 
   const computedOptions = Object.assign(defaultOptions, userOptions)
+  const data            = convert(input, computedOptions.scription)
+  const html            = data.utterances.map(u => convertUtterance(u, computedOptions)).join(``)
 
-  return utterances.map(u => convertUtterance(u, computedOptions)).join(``)
+  return { data, html }
 
 }

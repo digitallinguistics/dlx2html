@@ -16,7 +16,7 @@ I am going
 
 These interlinear glossed examples follow a very specific format, originally specified in the [Leipzig Glossing Rules][Leipzig]. Another specification, called [Scription][Scription], formalizes the Leipzig Glossing Rules in a way that allows interlinear examples to be consistently parsed by computers.
 
-The `scription2html` library takes one or more interlinear glosses written in the Scription format and converts them to HTML for representing linguistic examples on the web.
+The `scription2html` library takes one or more interlinear glosses written in the Scription format and converts them to HTML for representing linguistic examples on the web. It uses another library (`scription2dlx`) to parse the Scription data into memory. You can access this underlying data with the `data` property in the object returned by calling `scription2html`.
 
 The `scription2html` library does not add any styling to the output HTML. Users should either add their own CSS styles, or use the compatible [Digital Linguistics Style Library][Styles]. The structure of the output HTML is described below.
 
@@ -51,10 +51,13 @@ To use `scription2html` in Node:
     const scription = await readFile(`examples.txt`, `utf-8`)
 
     // Convert the text to HTML.
-    const html = convert(scription, { /* specify options here */ })
+    const { data, html } = convert(scription, { /* specify options here */ })
 
     // Outputs an HTML String.
     console.log(html) // <div class=igl>...</div>
+
+    // You can also access the underlying data:
+    console.log(data) // { utterances: [...] }
     ```
 
 ### Browser
@@ -75,13 +78,27 @@ To use `scription2html` in the browser:
       const scription = document.body.innerText
 
       // Convert the text to HTML.
-      const html = convert(scription, { /* specify options here */ })
+      const { data, html } = convert(scription, { /* specify options here */ })
 
       // Insert the HTML into your page.
       document.body.innerHTML = html
 
+      // You can also access the underlying data:
+      console.log(data) // { utterances: [...] }
+
     </script>
     ```
+
+### API
+
+Calling the `scription2html` funtion returns an object with two properties: `html` and `data`.
+
+- `html` is the linguistic examples converted to HTML.
+- `data` is the linguistic examples as stored in working memory. See the [scription2dlx][scription2dlx] library for more details.
+
+If no input is provided, `null` is returned.
+
+If the input is a string containing only whitespace, an empty string is returned for the value of the `html` property.
 
 ## Options
 
@@ -106,9 +123,10 @@ const options = {
 **FORTHCOMING**
 
 <!-- Links -->
-[learn-Node]: https://nodejs.dev/en/learn/
-[Leipzig]:    https://www.eva.mpg.de/lingua/resources/glossing-rules.php
-[Node]:       https://nodejs.org/
-[releases]:   https://github.com/digitallinguistics/scription2html/releases
-[Scription]:  https://scription.digitallinguistics.io/
-[Styles]:     https://styles.digitallinguistics.io/
+[learn-Node]:    https://nodejs.dev/en/learn/
+[Leipzig]:       https://www.eva.mpg.de/lingua/resources/glossing-rules.php
+[Node]:          https://nodejs.org/
+[releases]:      https://github.com/digitallinguistics/scription2html/releases
+[Scription]:     https://scription.digitallinguistics.io/
+[scription2dlx]: https://github.com/digitallinguistics/scription2dlx/
+[Styles]:        https://styles.digitallinguistics.io/
