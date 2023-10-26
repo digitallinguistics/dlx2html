@@ -1,8 +1,11 @@
-import { expect }         from 'chai'
-import findElementByClass from './utilities/findElementByClass.js'
-import { getTextContent } from '../node_modules/@web/parse5-utils/src/index.js'
-import parse              from './utilities/convertAndParse.js'
-import { Swahili }        from '../samples/data/data.js'
+import { expect }          from 'chai'
+import findElementByClass  from './utilities/findElementByClass.js'
+import findElementsByClass from './utilities/findElementsByClass.js'
+import { getAttribute }    from '@web/parse5-utils'
+import { getTextContent }  from '../node_modules/@web/parse5-utils/src/index.js'
+import parse               from './utilities/convertAndParse.js'
+
+import { ChitimachaText, Swahili } from '../samples/data/data.js'
 
 describe(`lines`, function() {
 
@@ -24,6 +27,25 @@ describe(`lines`, function() {
       const header    = findElementByClass(dom, `ex-header`)
 
       expect(header.childNodes[0].value).to.equal(`Swahili`)
+
+    })
+
+  })
+
+  describe(`transcript`, function() {
+
+    it(`produces one line per orthography`, function() {
+
+      const { dom }     = parse(ChitimachaText)
+      const [ex]        = dom.childNodes
+      const transcripts = findElementsByClass(ex, `trs`)
+
+      expect(transcripts).to.have.length(2)
+
+      const [mod, swad] = transcripts
+
+      expect(getAttribute(mod, `data-ortho`)).to.equal(`Modern`)
+      expect(getAttribute(swad, `data-ortho`)).to.equal(`Swadesh`)
 
     })
 

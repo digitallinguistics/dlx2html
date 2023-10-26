@@ -14,9 +14,9 @@ ni-na-end-a
 I am going
 ```
 
-These interlinear glossed examples follow a very specific format, originally specified in the [Leipzig Glossing Rules][Leipzig]. Another specification, called [Scription][Scription], formalizes the Leipzig Glossing Rules in a way that allows interlinear examples to be consistently parsed by computers.
+These interlinear glossed examples follow a very specific format, originally specified in the [Leipzig Glossing Rules][Leipzig]. Another specification, called [scription][scription], formalizes the Leipzig Glossing Rules in a way that allows interlinear examples to be consistently parsed by computers.
 
-The `scription2html` library takes one or more interlinear glosses written in the Scription format and converts them to HTML for representing linguistic examples on the web. It uses another library (`scription2dlx`) to parse the Scription data into memory. You can access this underlying data with the `data` property in the object returned by calling `scription2html`.
+The `scription2html` library takes one or more interlinear glosses written in the scription format and converts them to HTML for representing linguistic examples on the web. It uses another library (`scription2dlx`) to parse the scription data into memory. You can access this underlying data with the `data` property in the object returned by calling `scription2html`.
 
 The `scription2html` library does not add any styling to the output HTML. Users should either add their own CSS styles, or use the compatible [Digital Linguistics Style Library][Styles]. The structure of the output HTML is described below.
 
@@ -40,14 +40,14 @@ To use `scription2html` in Node:
     yarn add @digitallinguistics/scription2html
     ```
 
-2. Import the package and use it to convert Scription data.
+2. Import the package and use it to convert scription data.
 
     ```js
     // Import the scription2html module.
     import convert      from '@digitallinguistics/scription2html'
     import { readFile } from 'node:fs/promises'
 
-    // Get a reference to your Scription text as a String.
+    // Get a reference to your scription text as a String.
     const scription = await readFile(`examples.txt`, `utf-8`)
 
     // Convert the text to HTML.
@@ -74,7 +74,7 @@ To use `scription2html` in the browser:
       // Import the scription2html module
       import convert from './scription2html.js'
 
-      // Get a reference to your Scription text as a String.
+      // Get a reference to your scription text as a String.
       const scription = document.body.innerText
 
       // Convert the text to HTML.
@@ -112,13 +112,31 @@ If the input is a string containing only whitespace, an empty string is returned
 
 This section describes the structure of the HTML output by this library, and the classes added to the HTML elements. You can see sample HTML output by the program in the `samples/` folder.
 
-Each utterance/example in the original Scription text is wrapped in a `<div class=igl>` element by default. You can customize both the tag that is used for the wrapper and the classes applied to it with the `tag` and `classes` options. For example, to wrap each utterance in `<li class=interlinear>`, you would provide the following options:
+Each utterance/example in the original scription text is wrapped in a `<div class=igl>` element by default. You can customize both the tag that is used for the wrapper and the classes applied to it with the `tag` and `classes` options. For example, to wrap each utterance in `<li class=interlinear>`, you would provide the following options:
 
 ```js
 const options = {
   classes: [`interlinear`],
   tag:     `li`
 }
+```
+
+Each line of the interlinear example is given a CSS class that matches its line type. For example, the `\trs` line will result in `<p class=trs>`, and the `\tln-en` line will result in `<p class=tln lang=en>`.
+
+Whenever the language of a gloss or translation is specified, it is passed through to the `lang` attribute of the relevant analysis language elements, as just seen in the `\tln-en` example. Whenever the default language of the text is specified, it is passed through to the `lang` attribute of the relevant target language elements.
+
+When the scription format allows for data in multiple orthographies, the orthography of the data is specified in the `data-ortho` attribute. For example, the following lines of scription are transformed to the HTML that follows:
+
+```txt
+\trs-Modern  Wetkx hus naancaakamankx wetk hi hokmiqi.
+\trs-Swadesh wetkšˊ husˊ na·nča·kamankšˊ wetkˊ hi hokmiʔiˊ.
+\tln         He left his brothers.
+```
+
+```html
+<p class=trs data-ortho=Modern>Wetkx hus naancaakamankx wetk hi hokmiqi.</p>
+<p class=trs data-ortho=Swadesh>wetkšˊ husˊ na·nča·kamankšˊ wetkˊ hi hokmiʔiˊ.</p>
+<p class=tln>He left his brothers.</p>
 ```
 
 ### Additional Notes on HTML Structure
@@ -132,6 +150,6 @@ const options = {
 [Leipzig]:       https://www.eva.mpg.de/lingua/resources/glossing-rules.php
 [Node]:          https://nodejs.org/
 [releases]:      https://github.com/digitallinguistics/scription2html/releases
-[Scription]:     https://scription.digitallinguistics.io/
+[scription]:     https://scription.digitallinguistics.io/
 [scription2dlx]: https://github.com/digitallinguistics/scription2dlx/
 [Styles]:        https://styles.digitallinguistics.io/
