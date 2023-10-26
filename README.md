@@ -64,7 +64,7 @@ To use `scription2html` in Node:
 
 To use `scription2html` in the browser:
 
-1. Download the latest version of the script from the [releases][releases] page.
+1. Download the latest version of the library from the [releases][releases] page. Copy the `scription2html.js` file to your project.
 
 2. Import and use the script in your code:
 

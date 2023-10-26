@@ -24,7 +24,9 @@
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
+  "exports": "./index.js",
   "scripts": {
+    "build": "esbuild --bundle --minify --outfile=scription2html.js index.js",
     "stop-only": "stop-only --folder . --skip node_modules,.github",
     "test": "mocha *.test.js"
   },
@@ -32,6 +34,7 @@
     "@digitallinguistics/eslint-config": "^0.3.0",
     "@web/parse5-utils": "^2.0.2",
     "chai": "^4.3.10",
+    "esbuild": "^0.19.5",
     "eslint": "^8.52.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-mocha": "^10.2.0",
