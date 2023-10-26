@@ -25,6 +25,7 @@
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
   "scripts": {
+    "stop-only": "stop-only --folder . --skip node_modules,.github",
     "test": "mocha *.test.js"
   },
   "devDependencies": {
@@ -35,7 +36,8 @@
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-mocha": "^10.2.0",
     "mocha": "^10.2.0",
-    "parse5": "^7.1.2"
+    "parse5": "^7.1.2",
+    "stop-only": "^3.3.1"
   },
   "publishConfig": {
     "access": "public"
