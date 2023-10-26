@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@digitallinguistics/eslint-config": "^0.3.0",
+    "@web/parse5-utils": "^2.0.2",
     "chai": "^4.3.10",
     "eslint": "^8.52.0",
     "eslint-plugin-mocha": "^10.2.0",

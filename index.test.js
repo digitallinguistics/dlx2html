@@ -1,6 +1,8 @@
 import convert                    from './index.js'
 import { expect }                 from 'chai'
+import { getTextContent }         from './node_modules/@web/parse5-utils/src/index.js' // getTextContent() isn't exported by the ESM version for some reason.
 import { parseFragment as parse } from 'parse5'
+
 
 const sample = `ninaenda
 ni-na-end-a
@@ -45,8 +47,21 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`converts single utterances`)
+  it(`converts single utterances`, function() {
+
+    const output = convert(sample)
+    const dom    = parse(output)
+
+    expect(dom.childNodes).to.have.length(1)
+
+    const [ex] = dom.childNodes
+
+    expect(getTextContent(ex)).to.include(`ninaenda`)
+
+  })
 
   it(`converts multiple utterances`)
+
+  it(`returns one tag per utterance`)
 
 })

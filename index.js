@@ -6,6 +6,6 @@ export default function scription2html(input) {
 
   if (!trimmed) return ``
 
-  return `<div class=igl></div>`
+  return `<div class=igl>${ input }</div>`
 
 }
