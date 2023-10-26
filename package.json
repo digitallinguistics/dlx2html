@@ -27,7 +27,7 @@
   "scripts": {
     "build": "node build/index.js",
     "stop-only": "stop-only --folder src",
-    "test": "mocha src/**/*.test.js"
+    "test": "mocha test/*.test.js"
   },
   "devDependencies": {
     "@digitallinguistics/eslint-config": "^0.3.0",

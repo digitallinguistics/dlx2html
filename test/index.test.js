@@ -1,13 +1,10 @@
-import convert                    from './index.js'
-import { expect }                 from 'chai'
-import { getAttribute }           from '@web/parse5-utils'
-import { parseFragment as parse } from 'parse5'
+import convert          from '../src/index.js'
+import { expect }       from 'chai'
+import { getAttribute } from '@web/parse5-utils'
+import parse            from './utilities/convertAndParse.js'
+import parseClassString from './utilities/parseClassString.js'
 
 import { Swahili } from '../samples/data/data.js'
-
-function parseClassString(str) {
-  return str.split(/\s+/giu)
-}
 
 describe(`scription2html`, function() {
 
@@ -44,8 +41,7 @@ describe(`scription2html`, function() {
 
   it(`wraps utterances in <div class=igl> by default`, function() {
 
-    const { html } = convert(Swahili)
-    const dom      = parse(html)
+    const { dom } = parse(Swahili)
 
     expect(dom.childNodes).to.have.length(1)
     expect(dom.childNodes[0].tagName).to.equal(`div`)
@@ -53,19 +49,14 @@ describe(`scription2html`, function() {
   })
 
   it(`converts single utterances`, function() {
-
-    const { html } = convert(Swahili)
-    const dom      = parse(html)
-
+    const { dom } = parse(Swahili)
     expect(dom.childNodes).to.have.length(1)
-
   })
 
   it(`converts multiple utterances`, function() {
 
     const scription = `${ Swahili }\n\n${ Swahili }`
-    const { html }  = convert(scription)
-    const dom       = parse(html)
+    const { dom }   = parse(scription)
 
     expect(dom.childNodes).to.have.length(2)
 
@@ -73,10 +64,9 @@ describe(`scription2html`, function() {
 
   it(`option: classes`, function() {
 
-    const classes  = [`example`, `interlinear`]
-    const { html } = convert(Swahili, { classes })
-    const dom      = parse(html)
-    const [ex]     = dom.childNodes
+    const classes = [`example`, `interlinear`]
+    const { dom } = parse(Swahili, { classes })
+    const [ex]    = dom.childNodes
 
     const classString   = getAttribute(ex, `class`)
     const outputClasses = parseClassString(classString)
@@ -99,9 +89,9 @@ describe(`scription2html`, function() {
 
   it(`option: scription`, function() {
 
-    const scription = { utteranceMetadata: false }
-    const text = `# This is some metadata.${ Swahili }`
-    const { data } = convert(text, { scription })
+    const scription   = { utteranceMetadata: false }
+    const text        = `# This is some metadata.${ Swahili }`
+    const { data }    = convert(text, { scription })
     const [utterance] = data.utterances
 
     expect(utterance.metadata).to.be.undefined
@@ -115,10 +105,9 @@ describe(`scription2html`, function() {
 
   it(`option: tag`, function() {
 
-    const tag      = `li`
-    const { html } = convert(Swahili, { tag })
-    const dom      = parse(html)
-    const [ex]     = dom.childNodes
+    const tag     = `li`
+    const { dom } = parse(Swahili, { tag })
+    const [ex]    = dom.childNodes
 
     expect(ex.tagName).to.equal(tag)
 
