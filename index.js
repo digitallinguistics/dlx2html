@@ -1,10 +1,12 @@
 import convert from '@digitallinguistics/scription2dlx'
 
-function convertUtterance(u, { tag }) {
-  return `<${ tag } class=igl>${ JSON.stringify(u, null, 2) }</${ tag }>`
+function convertUtterance(u, { classes, tag }) {
+  const classString = classes.join(` `)
+  return `<${ tag } class='${ classString }'>${ JSON.stringify(u, null, 2) }</${ tag }>`
 }
 
 const defaultOptions = {
+  classes:   [`igl`],
   scription: {},
   tag:       `div`,
 }

@@ -1,8 +1,8 @@
 import convert                    from './index.js'
 import { expect }                 from 'chai'
+import { getAttribute }           from '@web/parse5-utils'
 import { getTextContent }         from './node_modules/@web/parse5-utils/src/index.js' // getTextContent() isn't exported by the ESM version for some reason.
 import { parseFragment as parse } from 'parse5'
-
 
 const swahili = `
 ninaenda
@@ -16,6 +16,10 @@ waxt-qungu qasi
 day-one    man
 one day a man
 `
+
+function parseClassString(str) {
+  return str.split(/\s+/giv)
+}
 
 describe(`scription2html`, function() {
 
@@ -79,6 +83,22 @@ describe(`scription2html`, function() {
     const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(2)
+
+  })
+
+  it(`option: classes`, function() {
+
+    const classes  = [`example`, `interlinear`]
+    const { html } = convert(swahili, { classes })
+    const dom      = parse(html)
+    const [ex]     = dom.childNodes
+
+    const classString   = getAttribute(ex, `class`)
+    const outputClasses = parseClassString(classString)
+
+    expect(outputClasses).to.have.length(2)
+    expect(outputClasses).to.include(`example`)
+    expect(outputClasses).to.include(`interlinear`)
 
   })
 
