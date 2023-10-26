@@ -5,13 +5,10 @@ import { describe, it } from 'node:test'
 
 describe(`scription2html`, function() {
 
-  it(`returns the input`, function() {
-
-    const input  = `This is the input`
+  it(`whitespace → empty string`, function() {
+    const input  = `  `
     const output = convert(input)
-
-    expect(output).to.equal(input)
-
+    expect(output).to.equal(``)
   })
 
 })

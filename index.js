@@ -1,3 +1,7 @@
 export default function scription2html(input) {
-  return input
+
+  const trimmed = input.trim()
+
+  if (!trimmed) return ``
+
 }
