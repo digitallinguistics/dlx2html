@@ -102,6 +102,32 @@ describe(`scription2html`, function() {
 
   })
 
+  it(`option: classes (validates)`, function() {
+
+    const test1 = () => convert(swahili, { classes: `example interlinear` })
+    expect(test1).to.throw(`classes`)
+
+    const test2 = () => convert(swahili, { classes: [0] })
+    expect(test2).to.throw(`classes`)
+
+  })
+
+  it(`option: scription`, function() {
+
+    const scription = { utteranceMetadata: false }
+    const text = `# This is some metadata.${ swahili }`
+    const { data } = convert(text, { scription })
+    const [utterance] = data.utterances
+
+    expect(utterance.metadata).to.be.undefined
+
+  })
+
+  it(`option: scription (validates)`, function() {
+    const test = () => convert(swahili, { scription: `string` })
+    expect(test).to.throw(`scription`)
+  })
+
   it(`option: tag`, function() {
 
     const tag      = `li`
@@ -113,15 +139,9 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`option: scription`, function() {
-
-    const scription   = { utteranceMetadata: false }
-    const text        = `# This is some metadata.${ swahili }`
-    const { data }    = convert(text, { scription })
-    const [utterance] = data.utterances
-
-    expect(utterance.metadata).to.be.undefined
-
+  it(`option: tag (validates)`, function() {
+    const test = () => convert(swahili, { tag: 0 })
+    expect(test).to.throw(`tag`)
   })
 
 })
