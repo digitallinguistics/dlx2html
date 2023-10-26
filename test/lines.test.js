@@ -51,6 +51,35 @@ describe(`lines`, function() {
 
   })
 
+  describe(`transcription`, function() {
+
+    it(`produces one line per orthography`, function() {
+
+      const scription = `
+      \\txn-mod  waxdungu qasi
+      \\txn-swad wašdungu ʔasi
+      \\txn-apa  waštʼunkʼu ʔasi
+      \\m        waxt-qungu qasi
+      \\gl       day-one    man
+      \\tln      one day a man
+      `
+
+      const { dom }     = parse(scription)
+      const [ex]        = dom.childNodes
+      const transcripts = findElementsByClass(ex, `txn`)
+
+      expect(transcripts).to.have.length(3)
+
+      const [mod, swad, apa] = transcripts
+
+      expect(getAttribute(mod, `data-ortho`)).to.equal(`mod`)
+      expect(getAttribute(swad, `data-ortho`)).to.equal(`swad`)
+      expect(getAttribute(apa, `data-ortho`)).to.equal(`apa`)
+
+    })
+
+  })
+
   describe(`source`, function() {
 
     it(`is not present when there is no data`, function() {
