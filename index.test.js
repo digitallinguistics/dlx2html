@@ -18,7 +18,7 @@ one day a man
 `
 
 function parseClassString(str) {
-  return str.split(/\s+/giv)
+  return str.split(/\s+/giu)
 }
 
 describe(`scription2html`, function() {
