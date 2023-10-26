@@ -25,15 +25,13 @@
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
   "scripts": {
-    "open-cypress": "cypress open --config-file=test/cypress.config.js",
-    "test": "cypress run --config-file=test/cypress.config.js --component"
+    "start": "node --test --watch",
+    "test": "node --test"
   },
   "devDependencies": {
-    "@cypress/mount-utils": "^4.0.0",
-    "@digitallinguistics/eslint-config": "^0.2.0",
-    "cypress": "^12.0.2",
-    "eslint": "^8.29.0",
-    "eslint-plugin-cypress": "^2.12.1"
+    "@digitallinguistics/eslint-config": "^0.3.0",
+    "chai": "^4.3.10",
+    "eslint": "^8.52.0"
   },
   "publishConfig": {
     "access": "public"

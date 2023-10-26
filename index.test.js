@@ -1,12 +1,17 @@
-import convert from './index.js'
+import convert    from './index.js'
+import { expect } from 'chai'
 
-describe(`Cypress`, function() {
+import { describe, it } from 'node:test'
 
-  it(`mounts HTML`, function() {
-    const text = `This is an interlinear gloss.`
-    cy.mount(`<div class=igl>${ text }</div>`)
-    cy.get(`.igl`)
-    .should(`have.text`, text)
+describe(`scription2html`, function() {
+
+  it(`returns the input`, function() {
+
+    const input  = `This is the input`
+    const output = convert(input)
+
+    expect(output).to.equal(input)
+
   })
 
 })
