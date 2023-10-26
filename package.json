@@ -19,16 +19,15 @@
     "url": "https://danielhieber.info"
   },
   "type": "module",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
-  "exports": "./index.js",
+  "exports": "./src/index.js",
   "scripts": {
     "build": "node build/index.js",
-    "stop-only": "stop-only --folder . --skip node_modules,.github",
-    "test": "mocha *.test.js"
+    "stop-only": "stop-only --folder src",
+    "test": "mocha src/**/*.test.js"
   },
   "devDependencies": {
     "@digitallinguistics/eslint-config": "^0.3.0",

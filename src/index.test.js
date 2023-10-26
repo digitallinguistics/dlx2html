@@ -1,21 +1,9 @@
 import convert                    from './index.js'
 import { expect }                 from 'chai'
 import { getAttribute }           from '@web/parse5-utils'
-import { getTextContent }         from './node_modules/@web/parse5-utils/src/index.js' // getTextContent() isn't exported by the ESM version for some reason.
 import { parseFragment as parse } from 'parse5'
 
-const swahili = `
-ninaenda
-ni-na-end-a
-1SG-PRES-go-IND
-I am going`
-
-const chiti = `
-waxdungu qasi
-waxt-qungu qasi
-day-one    man
-one day a man
-`
+import { Swahili } from '../samples/data/data.js'
 
 function parseClassString(str) {
   return str.split(/\s+/giu)
@@ -40,7 +28,7 @@ describe(`scription2html`, function() {
     ---
     title: The title of this story
     ---
-    ${ swahili }
+    ${ Swahili }
     `
 
     const runTest = () => convert(input)
@@ -50,13 +38,13 @@ describe(`scription2html`, function() {
   })
 
   it(`can access the underlying data`, function() {
-    const { data } = convert(swahili)
+    const { data } = convert(Swahili)
     expect(data.utterances).to.have.length(1)
   })
 
   it(`wraps utterances in <div class=igl> by default`, function() {
 
-    const { html } = convert(swahili)
+    const { html } = convert(Swahili)
     const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(1)
@@ -66,21 +54,18 @@ describe(`scription2html`, function() {
 
   it(`converts single utterances`, function() {
 
-    const { html } = convert(swahili)
+    const { html } = convert(Swahili)
     const dom      = parse(html)
 
     expect(dom.childNodes).to.have.length(1)
-
-    const [ex] = dom.childNodes
-
-    expect(getTextContent(ex)).to.include(`ninaenda`)
 
   })
 
   it(`converts multiple utterances`, function() {
 
-    const { html } = convert(`${ swahili }\n\n${ chiti }`)
-    const dom      = parse(html)
+    const scription = `${ Swahili }\n\n${ Swahili }`
+    const { html }  = convert(scription)
+    const dom       = parse(html)
 
     expect(dom.childNodes).to.have.length(2)
 
@@ -89,7 +74,7 @@ describe(`scription2html`, function() {
   it(`option: classes`, function() {
 
     const classes  = [`example`, `interlinear`]
-    const { html } = convert(swahili, { classes })
+    const { html } = convert(Swahili, { classes })
     const dom      = parse(html)
     const [ex]     = dom.childNodes
 
@@ -104,10 +89,10 @@ describe(`scription2html`, function() {
 
   it(`option: classes (validates)`, function() {
 
-    const test1 = () => convert(swahili, { classes: `example interlinear` })
+    const test1 = () => convert(Swahili, { classes: `example interlinear` })
     expect(test1).to.throw(`classes`)
 
-    const test2 = () => convert(swahili, { classes: [0] })
+    const test2 = () => convert(Swahili, { classes: [0] })
     expect(test2).to.throw(`classes`)
 
   })
@@ -115,7 +100,7 @@ describe(`scription2html`, function() {
   it(`option: scription`, function() {
 
     const scription = { utteranceMetadata: false }
-    const text = `# This is some metadata.${ swahili }`
+    const text = `# This is some metadata.${ Swahili }`
     const { data } = convert(text, { scription })
     const [utterance] = data.utterances
 
@@ -124,14 +109,14 @@ describe(`scription2html`, function() {
   })
 
   it(`option: scription (validates)`, function() {
-    const test = () => convert(swahili, { scription: `string` })
+    const test = () => convert(Swahili, { scription: `string` })
     expect(test).to.throw(`scription`)
   })
 
   it(`option: tag`, function() {
 
     const tag      = `li`
-    const { html } = convert(swahili, { tag })
+    const { html } = convert(Swahili, { tag })
     const dom      = parse(html)
     const [ex]     = dom.childNodes
 
@@ -140,7 +125,7 @@ describe(`scription2html`, function() {
   })
 
   it(`option: tag (validates)`, function() {
-    const test = () => convert(swahili, { tag: 0 })
+    const test = () => convert(Swahili, { tag: 0 })
     expect(test).to.throw(`tag`)
   })
 

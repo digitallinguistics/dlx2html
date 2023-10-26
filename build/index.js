@@ -1,4 +1,4 @@
-import convert           from '../index.js'
+import convert           from '../src/index.js'
 import esbuild           from 'esbuild'
 import { fileURLToPath } from 'node:url'
 import path              from 'path'
@@ -13,7 +13,7 @@ const contentTag = `<!-- CONTENT -->`
 
 await esbuild.build({
   bundle:      true,
-  entryPoints: [`index.js`],
+  entryPoints: [path.resolve(__dirname, `../src/index.js`)],
   minify:      true,
   outfile:     `scription2html.js`,
 })
@@ -24,10 +24,13 @@ const template = await readFile(path.resolve(__dirname, `./template.html`), `utf
 const files    = await readdir(path.resolve(__dirname, `../samples/data`))
 
 for (const file of files) {
+
+  if (!file.endsWith(`.txt`)) continue
+
   const scription     = await readFile(path.resolve(__dirname, `../samples/data`, file), `utf8`)
   const filename      = path.basename(file, `.txt`)
   let   content       = `<h1>${ filename }</h1>`
-  const { html }      = convert(scription)
+  const { html }      = convert(scription, { tag: `li` })
   const interlinears  = `<ul>${ html }</ul>`
 
   content += `\n${ interlinears }`
