@@ -1,0 +1,25 @@
+# Causative-Reversive
+\trs Satia’tawi’táhsi!
+\m   s-at-ia’t-a-wi-’t-a-hsi
+\gl  2sg.agt-mid-body-jr-cover-caus-jr-rev
+\lit un-cause your body to be covered, uncover your body
+\tln Take your coat off!
+\sp  CP
+\s   Mithun f.c.
+
+# Causative-Reversive-Benefactive
+Takhnenna’taienthókwa’s!
+tak-hnenna’t-a-ient-hw-kw-a-’s
+2sg>1sg-potato-jr-lie-caus-rev-jr-ben
+un-cause potatoes to lie for me
+Harvest the potatoes for me!
+AKJ
+Mithun f.c.
+
+Wa’kheiatia’tawi’tsheronnianión:hahse’.
+wa’-khei-at-ia’t-a-wi-’tsher-onni-a-nion-hahs-e-’
+fac-1sg>3-mid-body-jr-cover-nmlz-make-jr-distr-ben-ep-pct
+for them I variously made body covers
+I made them each a lot of dresses.
+LJ
+Mithun f.c.

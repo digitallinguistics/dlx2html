@@ -121,6 +121,10 @@ const options = {
 }
 ```
 
+### Additional Notes on HTML Structure
+
+- The speaker (`/sp`) and source (`/s`) data are combined into a single element strutured as follows: `<p class=ex-source>{speaker} ({source})</p>`.
+
 **FORTHCOMING**
 
 <!-- Links -->
