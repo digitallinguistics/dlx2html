@@ -102,10 +102,11 @@ If the input is a string containing only whitespace, an empty string is returned
 
 ## Options
 
-| Option       | type          | Default   | Description                                                                                                 |
-| ------------ | ------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
-| `classes`    | Array<String> | `['igl']` | An array of classes to apply to the wrapper element.                                                        |
-| `tag`        | String        | `'div'`   | The HTML tag to wrap each interlinear gloss in. Can also be a custom tag (useful for HTML custom elements). |
+| Option      | type          | Default   | Description                                                                                                 |
+| ----------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| `classes`   | Array<String> | `['igl']` | An array of classes to apply to the wrapper element.                                                        |
+| `scription` | Object        | `{}`      | Options to pass to the `scription2dlx` library. See [scription2dlx][scription2dlx] for more details.        |
+| `tag`       | String        | `'div'`   | The HTML tag to wrap each interlinear gloss in. Can also be a custom tag (useful for HTML custom elements). |
 
 ## HTML Structure
 
