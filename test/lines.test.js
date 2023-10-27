@@ -9,6 +9,31 @@ import { ChitimachaText, Swahili } from '../samples/data/data.js'
 
 describe(`lines`, function() {
 
+  it.only(`literal translation`, function() {
+
+    const scription = `
+    \\txn    xaa qapx guxna
+    \\m      xaq qapx guxt-na
+    \\gl     mouth recip eat-nf.pl
+    \\tln    they kissed each other
+    \\lit-en they ate each other's mouths
+    \\lit-sp se comen sus bocas
+    `
+
+    const { dom } = parse(scription)
+    const literal = findElementsByClass(dom, `lit`)
+
+    expect(literal).to.have.length(2)
+
+    const [eng, spa] = literal
+
+    expect(getAttribute(eng, `lang`)).to.equal(`en`)
+    expect(getAttribute(spa, `lang`)).to.equal(`sp`)
+    expect(getTextContent(eng)).to.equal(`they ate each other's mouths`)
+    expect(getTextContent(spa)).to.equal(`se comen sus bocas`)
+
+  })
+
   describe(`metadata`, function() {
 
     it(`is not present when there is no data`, function() {
@@ -45,6 +70,7 @@ describe(`lines`, function() {
     const { dom } = parse(scription)
     const el      = findElementByClass(dom, `phon`)
 
+    // has .phon class
     expect(getTextContent(el)).to.equal(phonetic)
 
   })
@@ -73,6 +99,7 @@ describe(`lines`, function() {
       expect(getAttribute(mod, `data-ortho`)).to.equal(`mod`)
       expect(getAttribute(swad, `data-ortho`)).to.equal(`swad`)
       expect(getAttribute(apa, `data-ortho`)).to.equal(`apa`)
+      // have correct text
 
     })
 
@@ -104,6 +131,7 @@ describe(`lines`, function() {
       const text    = getTextContent(source)
 
       expect(text).to.equal(`Hamisi`)
+      // has correct CSS class
 
     })
 
@@ -122,6 +150,7 @@ describe(`lines`, function() {
       const text    = getTextContent(source)
 
       expect(text).to.equal(`(Hieber 2018: 1)`)
+      // has correct CSS class
 
     })
 
@@ -141,6 +170,7 @@ describe(`lines`, function() {
       const text = getTextContent(source)
 
       expect(text).to.equal(`Hamisi (Hieber 2018: 1)`)
+      // has correct CSS class
 
     })
 
@@ -160,6 +190,7 @@ describe(`lines`, function() {
 
       expect(getAttribute(mod, `data-ortho`)).to.equal(`Modern`)
       expect(getAttribute(swad, `data-ortho`)).to.equal(`Swadesh`)
+      // has correct text
 
     })
 

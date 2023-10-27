@@ -1,4 +1,5 @@
 import createHeader        from './lines/metadata.js'
+import createLiteral       from './lines/literal.js'
 import createPhonetic      from './lines/phonetic.js'
 import createSource        from './lines/source.js'
 import createTranscript    from './lines/transcript.js'
@@ -8,16 +9,18 @@ export default function convertUtterance(u, { classes, tag }) {
 
   const classString   = classes.join(` `)
   const header        = createHeader(u.metadata)
-  const transcript    = createTranscript(u.transcript)
-  const transcription = createTranscription(u.transcription)
+  const literal       = createLiteral(u.literal)
   const phonetic      = createPhonetic(u.phonetic)
   const source        = createSource(u.speaker, u.source)
+  const transcript    = createTranscript(u.transcript)
+  const transcription = createTranscription(u.transcription)
 
   return `<${ tag } class='${ classString }'>
     ${ header }
     ${ transcript }
     ${ transcription }
     ${ phonetic }
+    ${ literal }
     ${ source }
   </${ tag }>`
 
