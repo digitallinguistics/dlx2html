@@ -4,6 +4,7 @@ import findElementsByClass from './utilities/findElementsByClass.js'
 import { getAttribute }    from '@web/parse5-utils'
 import { getTextContent }  from '../node_modules/@web/parse5-utils/src/index.js'
 import parse               from './utilities/convertAndParse.js'
+import parseClassString    from './utilities/parseClassString.js'
 
 import { ChitimachaText, OldLatin, Swahili } from '../samples/data/data.js'
 
@@ -86,7 +87,6 @@ describe(`lines`, function() {
     const { dom } = parse(scription)
     const el      = findElementByClass(dom, `phon`)
 
-    // has .phon class
     expect(getTextContent(el)).to.equal(phonetic)
 
   })
@@ -115,7 +115,10 @@ describe(`lines`, function() {
       expect(getAttribute(mod, `data-ortho`)).to.equal(`mod`)
       expect(getAttribute(swad, `data-ortho`)).to.equal(`swad`)
       expect(getAttribute(apa, `data-ortho`)).to.equal(`apa`)
-      // have correct text
+
+      expect(getTextContent(mod)).to.equal(`waxdungu qasi`)
+      expect(getTextContent(swad)).to.equal(`wašdungu ʔasi`)
+      expect(getTextContent(apa)).to.equal(`waštʼunkʼu ʔasi`)
 
     })
 
@@ -147,7 +150,6 @@ describe(`lines`, function() {
       const text    = getTextContent(source)
 
       expect(text).to.equal(`Hamisi`)
-      // has correct CSS class
 
     })
 
@@ -166,7 +168,6 @@ describe(`lines`, function() {
       const text    = getTextContent(source)
 
       expect(text).to.equal(`(Hieber 2018: 1)`)
-      // has correct CSS class
 
     })
 
@@ -182,11 +183,10 @@ describe(`lines`, function() {
       `
 
       const { dom } = parse(scription)
-      const source = findElementByClass(dom, `ex-source`)
-      const text = getTextContent(source)
+      const source  = findElementByClass(dom, `ex-source`)
+      const text    = getTextContent(source)
 
       expect(text).to.equal(`Hamisi (Hieber 2018: 1)`)
-      // has correct CSS class
 
     })
 
@@ -206,7 +206,8 @@ describe(`lines`, function() {
 
       expect(getAttribute(mod, `data-ortho`)).to.equal(`Modern`)
       expect(getAttribute(swad, `data-ortho`)).to.equal(`Swadesh`)
-      // has correct text
+      expect(getTextContent(mod)).to.include(`naancaakamankx`)
+      expect(getTextContent(swad)).to.include(`na·nča·kamankšˊ`)
 
     })
 
