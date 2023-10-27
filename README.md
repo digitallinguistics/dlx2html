@@ -121,7 +121,7 @@ const options = {
 }
 ```
 
-Each line of the interlinear example is given a CSS class that matches its line type. For example, the `\trs` line will result in `<p class=trs>`, and the `\tln-en` line will result in `<p class=tln lang=en>`.
+Each line of the interlinear example is typically given a CSS class that matches its line type (with some exceptions, such as `timespan` instead of just `t`). For example, the `\trs` line will result in `<p class=trs>`, and the `\tln-en` line will result in `<p class=tln lang=en>`.
 
 Whenever the language of a gloss or translation is specified, it is passed through to the `lang` attribute of the relevant analysis language elements, as just seen in the `\tln-en` example. Whenever the default language of the text is specified, it is passed through to the `lang` attribute of the relevant target language elements.
 
@@ -141,7 +141,8 @@ When the scription format allows for data in multiple orthographies, the orthogr
 
 ### Additional Notes on HTML Structure
 
-- The speaker (`/sp`) and source (`/s`) data are combined into a single element strutured as follows: `<p class=ex-source>{speaker} ({source})</p>`.
+- The speaker (`\sp`) and source (`\s`) data are combined into a single element strutured as follows: `<p class=ex-source>{speaker} ({source})</p>`.
+- Notes fields (`\n`) are not added to the HTML by default.
 
 **FORTHCOMING**
 

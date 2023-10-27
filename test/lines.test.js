@@ -192,6 +192,25 @@ describe(`lines`, function() {
 
   })
 
+  it(`timespan`, function() {
+
+    const scription = `
+    \\txn ninaenda
+    \\m   ni-na-end-a
+    \\gl  1SG-PRES-go-IND
+    \\tln I am going
+    \\t   1.234-5.678
+    `
+
+    const { dom }  = parse(scription)
+    const timespan = findElementByClass(dom, `timespan`)
+    const text     = getTextContent(timespan)
+
+    expect(text).to.include(`1.234`)
+    expect(text).to.include(`5.678`)
+
+  })
+
   describe(`transcript`, function() {
 
     it(`produces one line per orthography`, function() {

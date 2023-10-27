@@ -2,6 +2,7 @@ import createHeader        from './lines/metadata.js'
 import createLiteral       from './lines/literal.js'
 import createPhonetic      from './lines/phonetic.js'
 import createSource        from './lines/source.js'
+import createTimespan      from './lines/timespan.js'
 import createTranscript    from './lines/transcript.js'
 import createTranscription from './lines/transcription.js'
 import createTranslation   from './lines/translation.js'
@@ -13,6 +14,7 @@ export default function convertUtterance(u, { classes, tag }) {
   const literal       = createLiteral(u.literal)
   const phonetic      = createPhonetic(u.phonetic)
   const source        = createSource(u.speaker, u.source)
+  const timespan      = createTimespan(u.startTime, u.endTime)
   const transcript    = createTranscript(u.transcript)
   const transcription = createTranscription(u.transcription)
   const translation   = createTranslation(u.translation)
@@ -25,6 +27,7 @@ export default function convertUtterance(u, { classes, tag }) {
     ${ translation }
     ${ literal }
     ${ source }
+    ${ timespan }
   </${ tag }>`
 
 }
