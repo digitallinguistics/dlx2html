@@ -5,11 +5,27 @@ import { getAttribute }    from '@web/parse5-utils'
 import { getTextContent }  from '../node_modules/@web/parse5-utils/src/index.js'
 import parse               from './utilities/convertAndParse.js'
 
-import { ChitimachaText, Swahili } from '../samples/data/data.js'
+import { ChitimachaText, OldLatin, Swahili } from '../samples/data/data.js'
 
 describe(`lines`, function() {
 
-  it.only(`literal translation`, function() {
+  it(`free translation`, function() {
+
+    const { dom } = parse(OldLatin)
+    const tln     = findElementsByClass(dom, `tln`)
+
+    expect(tln).to.have.length(2)
+
+    const [lat, eng] = tln
+
+    expect(getAttribute(lat, `lang`)).to.equal(`lat`)
+    expect(getAttribute(eng, `lang`)).to.equal(`eng`)
+    expect(getTextContent(lat)).to.include(`mittit`)
+    expect(getTextContent(eng)).to.include(`sends`)
+
+  })
+
+  it(`literal translation`, function() {
 
     const scription = `
     \\txn    xaa qapx guxna
