@@ -129,20 +129,42 @@ describe(`lines`, function() {
 
   })
 
-  it(`phonetic transcription`, function() {
+  describe(`phonetic transcription`, function() {
 
-    const phonetic = `ɔ́gɔ̀tɛ́ɛ́rɛ̀rà`
+    it(`renders`, function() {
 
-    const scription = `
-    \\phon ${ phonetic }
-    \\m    ó-ko-tɛ́ɛr-er-a
-    \\gl   pp-5-sing-appl-ind
-    `
+      const phonetic = `ɔ́gɔ̀tɛ́ɛ́rɛ̀rà`
 
-    const { dom } = parse(scription)
-    const el      = findElementByClass(dom, `phon`)
+      const scription = `
+      \\phon ${ phonetic }
+      \\m    ó-ko-tɛ́ɛr-er-a
+      \\gl   pp-5-sing-appl-ind
+      `
 
-    expect(getTextContent(el)).to.equal(phonetic)
+      const { dom } = parse(scription)
+      const el      = findElementByClass(dom, `phon`)
+
+      expect(getTextContent(el)).to.equal(phonetic)
+
+    })
+
+    it(`renders with emphasis`, function() {
+
+      const phonetic = `ɔ́gɔ̀*tɛ́ɛ́r*ɛ̀rà`
+
+      const scription = `
+      \\phon ${ phonetic }
+      \\m    ó-ko-*tɛ́ɛr*-er-a
+      \\gl   pp-5-*sing*-appl-ind
+      `
+
+      const { dom } = parse(scription)
+      const phon    = findElementByClass(dom, `phon`)
+      const b       = findElement(phon, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`tɛ́ɛ́r`)
+
+    })
 
   })
 
