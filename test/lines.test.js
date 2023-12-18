@@ -1,30 +1,64 @@
 import { expect }          from 'chai'
 import findElementByClass  from './utilities/findElementByClass.js'
 import findElementsByClass from './utilities/findElementsByClass.js'
-import { getAttribute }    from '@web/parse5-utils'
 import { getTextContent }  from '../node_modules/@web/parse5-utils/src/index.js'
 import parse               from './utilities/convertAndParse.js'
-import parseClassString    from './utilities/parseClassString.js'
+
+import {
+  findElement,
+  getAttribute,
+  getTagName,
+} from '@web/parse5-utils'
 
 import { ChitimachaText, OldLatin, Swahili } from '../samples/data/data.js'
 
 describe(`lines`, function() {
 
-  it(`free translation`, function() {
+  describe(`free translation`, function() {
 
-    const { dom } = parse(OldLatin)
-    const tln     = findElementsByClass(dom, `tln`)
+    it(`renders`, function() {
 
-    expect(tln).to.have.length(2)
+      const { dom } = parse(OldLatin)
+      const tln     = findElementsByClass(dom, `tln`)
 
-    const [lat, eng] = tln
+      expect(tln).to.have.length(2)
 
-    expect(getAttribute(lat, `lang`)).to.equal(`lat`)
-    expect(getAttribute(eng, `lang`)).to.equal(`eng`)
-    expect(getTextContent(lat)).to.include(`mittit`)
-    expect(getTextContent(eng)).to.include(`sends`)
+      const [lat, eng] = tln
+
+      expect(getAttribute(lat, `lang`)).to.equal(`lat`)
+      expect(getAttribute(eng, `lang`)).to.equal(`eng`)
+      expect(getTextContent(lat)).to.include(`mittit`)
+      expect(getTextContent(eng)).to.include(`sends`)
+
+    })
+
+    it(`renders with emphasis`, function() {
+
+      // Mandinka, from ex. 2 of your dissertation
+      const scription = `
+      \\txn *Kuuráŋ*o mâŋ díyaa.
+      \\m   *kuuráŋ*-o mâŋ     díyaa
+      \\gl  *sick*-def pfv.neg pleasant
+      \\tln *Sickness* is not pleasant.
+      \\s   Creissels 2017: 46
+
+      \\txn Díndíŋo máŋ *kuraŋ*.
+      \\m   díndíŋ-o  máŋ     *kuraŋ*
+      \\gl  child-def pfv.neg *sick*
+      \\tln The child is not *sick*.
+      \\s   Creissels 2017: 46
+      `
+
+      const { dom } = parse(scription)
+      const tln     = findElementByClass(dom, `tln`)
+      const b       = findElement(tln, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`Sickness`)
+
+    })
 
   })
+
 
   it(`literal translation`, function() {
 
