@@ -60,28 +60,49 @@ describe(`lines`, function() {
   })
 
 
-  it(`literal translation`, function() {
+  describe(`literal translation`, function() {
 
-    const scription = `
-    \\txn    xaa qapx guxna
-    \\m      xaq qapx guxt-na
-    \\gl     mouth recip eat-nf.pl
-    \\tln    they kissed each other
-    \\lit-en they ate each other's mouths
-    \\lit-sp se comen sus bocas
-    `
+    it(`renders`, function() {
 
-    const { dom } = parse(scription)
-    const literal = findElementsByClass(dom, `lit`)
+      const scription = `
+      \\txn    xaa qapx guxna
+      \\m      xaq qapx guxt-na
+      \\gl     mouth recip eat-nf.pl
+      \\tln    they kissed each other
+      \\lit-en they ate each other's mouths
+      \\lit-sp se comen sus bocas
+      `
 
-    expect(literal).to.have.length(2)
+      const { dom } = parse(scription)
+      const literal = findElementsByClass(dom, `lit`)
 
-    const [eng, spa] = literal
+      expect(literal).to.have.length(2)
 
-    expect(getAttribute(eng, `lang`)).to.equal(`en`)
-    expect(getAttribute(spa, `lang`)).to.equal(`sp`)
-    expect(getTextContent(eng)).to.equal(`they ate each other's mouths`)
-    expect(getTextContent(spa)).to.equal(`se comen sus bocas`)
+      const [eng, spa] = literal
+
+      expect(getAttribute(eng, `lang`)).to.equal(`en`)
+      expect(getAttribute(spa, `lang`)).to.equal(`sp`)
+      expect(getTextContent(eng)).to.equal(`they ate each other's mouths`)
+      expect(getTextContent(spa)).to.equal(`se comen sus bocas`)
+
+    })
+
+    it(`renders with emphasis`, function() {
+
+      const scription = `# Causative-Reversive
+      \\trs Satia’tawi*’t*á*hsi*!
+      \\m   s-at-ia’t-a-wi-*’t*-a-*hsi*
+      \\gl  2sg.agt-mid-body-jr-cover-*caus*-jr-*rev*
+      \\lit *un-cause* your body to be covered, uncover your body
+      \\tln Take your coat off!`
+
+      const { dom } = parse(scription)
+      const literal = findElementByClass(dom, `lit`)
+      const b       = findElement(literal, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`un-cause`)
+
+    })
 
   })
 
