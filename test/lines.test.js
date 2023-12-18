@@ -199,6 +199,23 @@ describe(`lines`, function() {
 
     })
 
+    it(`renders emphasis`, function() {
+
+      const scription = `
+      \\txn  wax*d*ungu qasi
+      \\m    waxt-qungu qasi
+      \\gl   day-one    man
+      \\tln  one day a man
+      `
+
+      const { dom } = parse(scription)
+      const txn     = findElementByClass(dom, `txn`)
+      const b       = findElement(txn, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`d`)
+
+    })
+
   })
 
   describe(`source`, function() {
