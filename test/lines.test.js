@@ -324,6 +324,23 @@ describe(`lines`, function() {
 
     })
 
+    it(`renders emphasis`, function() {
+
+      const scription = `# Causative-Reversive
+      \\trs Satia’tawi*’t*á*hsi*!
+      \\m   s-at-ia’t-a-wi-*’t*-a-*hsi*
+      \\gl  2sg.agt-mid-body-jr-cover-*caus*-jr-*rev*
+      \\lit *un-cause* your body to be covered, uncover your body
+      \\tln Take your coat off!`
+
+      const { dom }    = parse(scription)
+      const transcript = findElementByClass(dom, `trs`)
+      const b          = findElement(transcript, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`’t`)
+
+    })
+
   })
 
 })
