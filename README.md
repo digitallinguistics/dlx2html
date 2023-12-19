@@ -6,7 +6,7 @@ Written using modern ES modules, useable in both Node and the browser.
 
 When writing about linguistic data, linguists use a format called an **interlinear glossed example** which shows each of the parts of a word (morphemes) and their meanings. This allows people who are not familiar with the language under discussion to read the examples and understand their structure and meaning. Below is a very simple example from Swahili:
 
-```
+```txt
 # Swahili
 ninaenda
 ni-na-end-a
@@ -23,6 +23,18 @@ The `scription2html` library does not add any styling to the output HTML. Users 
 If using this library for research, please consider citing it using the model below:
 
 > Hieber, Daniel W. {year}. @digitallinguistics/scription2html. <https://github.com/digitallinguistics/scription2html/>
+
+## Samples
+
+The following pages demo the HTML output from the library. They are styled using the [DLx styles library][Styles].
+
+- [Algonquian](/samples/html/Algonquian.html)
+- [Chitimacha](/samples/html/Chitimacha.html)
+- [Chitimacha Text](/samples/html/Chitimacha-text.html)
+- [Mohawk](/samples/html/Mohawk.html)
+- [Nuuchahnulth](/samples/html/Nuuchahnulth.html)
+- [Old Latin](/samples/html/OldLatin.html)
+- [Swahili](/samples/html/Swahili.html)
 
 ## Usage
 
