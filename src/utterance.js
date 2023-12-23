@@ -7,17 +7,19 @@ import createTranscript    from './lines/transcript.js'
 import createTranscription from './lines/transcription.js'
 import createTranslation   from './lines/translation.js'
 
-export default function convertUtterance(u, { classes, tag }) {
+export default function convertUtterance(u, options) {
+
+  const { classes, tag } = options
 
   const classString   = classes.join(` `)
-  const header        = createHeader(u.metadata)
-  const literal       = createLiteral(u.literal)
+  const header        = createHeader(u.metadata, options)
+  const literal       = createLiteral(u.literal, options)
   const phonetic      = createPhonetic(u.phonetic)
   const source        = createSource(u.speaker, u.source)
   const timespan      = createTimespan(u.startTime, u.endTime)
   const transcript    = createTranscript(u.transcript)
   const transcription = createTranscription(u.transcription)
-  const translation   = createTranslation(u.translation)
+  const translation   = createTranslation(u.translation, options)
 
   return `<${ tag } class='${ classString }'>
     ${ header }

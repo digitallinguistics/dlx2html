@@ -1,9 +1,10 @@
 import addEmphasis from '../utilities/addEmphasis.js'
 
-export default function createLiteral(data) {
+export default function createLiteral(data, { analysisLang }) {
 
   if (typeof data === `string`) {
-    return `<p class=lit lang=en>${ addEmphasis(data) }</p>`
+    const lang = analysisLang ? `lang='${ analysisLang }'` : ``
+    return `<p class=lit ${ lang }>${ addEmphasis(data) }</p>`
   }
 
   let html = ``

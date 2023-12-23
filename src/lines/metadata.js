@@ -1,4 +1,5 @@
-export default function createHeader(metadata) {
+export default function createHeader(metadata, { analysisLang }) {
   if (!metadata) return ``
-  return `<p class=ex-header>${ metadata }</p>`
+  const lang = analysisLang ? `lang='${ analysisLang }'` : ``
+  return `<p class=ex-header ${ lang }>${ metadata }</p>`
 }

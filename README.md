@@ -114,11 +114,13 @@ If the input is a string containing only whitespace, an empty string is returned
 
 ## Options
 
-| Option      | type          | Default   | Description                                                                                                 |
-| ----------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
-| `classes`   | Array<String> | `['igl']` | An array of classes to apply to the wrapper element.                                                        |
-| `scription` | Object        | `{}`      | Options to pass to the `scription2dlx` library. See [scription2dlx][scription2dlx] for more details.        |
-| `tag`       | String        | `'div'`   | The HTML tag to wrap each interlinear gloss in. Can also be a custom tag (useful for HTML custom elements). |
+| Option         | type          | Default   | Description                                                                                                                                                                                                                                                                                                                                                  |
+| -------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `analysisLang` | String        | undefined | An [IETF language tag][lang-tags] to use as the default value of the `lang` attribute for any data in the analysis language (metadata, literal translation, free translation, glosses, literal word translation). If `undefined`, no `lang` tag is added, which means that browsers will assume that the analysis language is the same as the HTML document. |
+| `classes`      | Array<String> | `['igl']` | An array of classes to apply to the wrapper element.                                                                                                                                                                                                                                                                                                         |
+| `scription`    | Object        | `{}`      | Options to pass to the `scription2dlx` library. See [scription2dlx][scription2dlx] for more details.                                                                                                                                                                                                                                                         |
+| `tag`          | String        | `'div'`   | The HTML tag to wrap each interlinear gloss in. Can also be a custom tag (useful for HTML custom elements).                                                                                                                                                                                                                                                  |
+| `targetLang`   | String        | undefined | An [IETF language tag][lang-tags] to use as the default value of the `lang` attribute for any data in the target language.                                                                                                                                                                                                                                   |
 
 ## HTML Structure
 
@@ -135,7 +137,7 @@ const options = {
 
 Each line of the interlinear example is typically given a CSS class that matches its line type (with some exceptions, such as `timespan` instead of just `t`). For example, the `\trs` line will result in `<p class=trs>`, and the `\tln-en` line will result in `<p class=tln lang=en>`.
 
-Whenever the language of a gloss or translation is specified, it is passed through to the `lang` attribute of the relevant analysis language elements, as just seen in the `\tln-en` example. Whenever the default language of the text is specified, it is passed through to the `lang` attribute of the relevant target language elements.
+If the language of the text is specified, it is set as the value of the `lang` attribute for data in the target language wherever relevant. Whenever the language of analysis data (metadata, glosses, translations, etc.) is specified, it is passed through to the `lang` attribute of the relevant analysis language elements (`<p class=tln lang=en>`).
 
 When the scription format allows for data in multiple orthographies, the orthography of the data is specified in the `data-ortho` attribute. For example, the following lines of scription are transformed to the HTML that follows:
 
@@ -159,6 +161,7 @@ When the scription format allows for data in multiple orthographies, the orthogr
 **FORTHCOMING**
 
 <!-- Links -->
+[lang-tags]:     https://datatracker.ietf.org/doc/html/rfc5646
 [learn-Node]:    https://nodejs.dev/en/learn/
 [Leipzig]:       https://www.eva.mpg.de/lingua/resources/glossing-rules.php
 [Node]:          https://nodejs.org/

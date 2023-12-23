@@ -27,6 +27,7 @@
   "scripts": {
     "build": "node build/index.js",
     "stop-only": "stop-only --folder src",
+    "start": "mocha test/*.test.js",
     "test": "mocha test/*.test.js"
   },
   "publishConfig": {

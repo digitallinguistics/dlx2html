@@ -1,5 +1,9 @@
 export default function validateOptions(opts) {
 
+  if (`analysisLang` in opts) {
+    if (typeof opts.analysisLang !== `string`) throw new TypeError(`The 'analysisLang' option must be a String.`)
+  }
+
   if (`classes` in opts) {
     if (!Array.isArray(opts.classes)) throw new TypeError(`The 'classes' option must be an array.`)
     if (!opts.classes.every(cls => typeof cls === `string`)) throw new TypeError(`Each of the values of the 'classes' array must be a string.`)

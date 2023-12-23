@@ -1,10 +1,12 @@
-import convert          from '../src/index.js'
-import { expect }       from 'chai'
-import { getAttribute } from '@web/parse5-utils'
-import parse            from './utilities/convertAndParse.js'
-import parseClassString from './utilities/parseClassString.js'
+import convert            from '../src/index.js'
+import { expect }         from 'chai'
+import findElementByClass from './utilities/findElementByClass.js'
+import { getAttribute }   from '@web/parse5-utils'
+import { getTextContent } from '../node_modules/@web/parse5-utils/src/index.js'
+import parse              from './utilities/convertAndParse.js'
+import parseClassString   from './utilities/parseClassString.js'
+import { Swahili }        from '../samples/data/data.js'
 
-import { Swahili } from '../samples/data/data.js'
 
 describe(`scription2html`, function() {
 
@@ -59,6 +61,53 @@ describe(`scription2html`, function() {
     const { dom }   = parse(scription)
 
     expect(dom.childNodes).to.have.length(2)
+
+  })
+
+  it(`option: analysisLang = undefined`, function() {
+
+    const scription = `
+    # Swahili
+    \\txn ninakupenda
+    \\m   ni-na-ku-pend-a
+    \\gl  1SG.SUBJ-PRES-2SG.OBJ-love-IND
+    \\lit Te estoy amando.
+    \\tln Te amo.
+    `
+
+    const { dom } = parse(scription)
+
+    const lit  = findElementByClass(dom, `lit`)
+    const tln  = findElementByClass(dom, `tln`)
+    const meta = findElementByClass(dom, `ex-header`)
+
+    expect(getAttribute(lit, `lang`)).to.be.undefined
+    expect(getAttribute(tln, `lang`)).to.be.undefined
+    expect(getAttribute(meta, `lang`)).to.be.undefined
+
+  })
+
+  it(`option: analysisLang`, function() {
+
+    const scription = `
+    # Swahili
+    \\txn ninakupenda
+    \\m   ni-na-ku-pend-a
+    \\gl  1SG.SUBJ-PRES-2SG.OBJ-love-IND
+    \\lit Te estoy amando.
+    \\tln Te amo.
+    `
+
+    const analysisLang = `sp`
+    const { dom }      = parse(scription, { analysisLang })
+
+    const lit  = findElementByClass(dom, `lit`)
+    const tln  = findElementByClass(dom, `tln`)
+    const meta = findElementByClass(dom, `ex-header`)
+
+    expect(getAttribute(lit, `lang`)).to.equal(analysisLang)
+    expect(getAttribute(tln, `lang`)).to.equal(analysisLang)
+    expect(getAttribute(meta, `lang`)).to.equal(analysisLang)
 
   })
 

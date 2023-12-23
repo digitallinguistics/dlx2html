@@ -1,9 +1,10 @@
 import addEmphasis from '../utilities/addEmphasis.js'
 
-export default function createTranslation(data) {
+export default function createTranslation(data, { analysisLang }) {
 
   if (typeof data === `string`) {
-    return `<p class=tln lang=en>${ addEmphasis(data) }</p>`
+    const lang = analysisLang ? `lang='${ analysisLang }'` : ``
+    return `<p class=tln ${ lang }>${ addEmphasis(data) }</p>`
   }
 
   let html = ``
