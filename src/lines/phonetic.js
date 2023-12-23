@@ -1,6 +1,8 @@
 import addEmphasis from '../utilities/addEmphasis.js'
 
-export default function createPhonetic(phonetic) {
+export default function createPhonetic(phonetic, { targetLang }) {
   if (!phonetic) return ``
-  return `<p class=phon>${ addEmphasis(phonetic) }</p>`
+  const lang = targetLang ? `lang='${ targetLang }-fonipa'` : ``
+  // NB: Don't add phonetic brackets. These can be added with CSS.
+  return `<p class=phon ${ lang }>${ addEmphasis(phonetic) }</p>`
 }

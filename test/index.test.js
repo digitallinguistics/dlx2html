@@ -2,11 +2,9 @@ import convert            from '../src/index.js'
 import { expect }         from 'chai'
 import findElementByClass from './utilities/findElementByClass.js'
 import { getAttribute }   from '@web/parse5-utils'
-import { getTextContent } from '../node_modules/@web/parse5-utils/src/index.js'
 import parse              from './utilities/convertAndParse.js'
 import parseClassString   from './utilities/parseClassString.js'
 import { Swahili }        from '../samples/data/data.js'
-
 
 describe(`scription2html`, function() {
 
@@ -163,8 +161,41 @@ describe(`scription2html`, function() {
   })
 
   it(`option: tag (validates)`, function() {
-    const test = () => convert(Swahili, { tag: 0 })
+    const test = () => parse(Swahili, { tag: 0 })
     expect(test).to.throw(`tag`)
+  })
+
+  it(`option: targetLang = undefined`, function() {
+
+    const scription = `
+    \\trs Ninakupenda.↗
+    `
+
+    const { dom } = parse(scription)
+
+    const transcript = findElementByClass(dom, `trs`)
+
+    expect(getAttribute(transcript, `lang`)).to.be.undefined
+
+
+  })
+
+  it(`option: targetLang`, function() {
+
+    const scription = `
+    \\trs Ninakupenda.↗
+    \\txn ninakupenda
+    `
+
+    const targetLang = `swa`
+    const { dom }    = parse(scription, { targetLang })
+    const trs        = findElementByClass(dom, `trs`)
+    const txn        = findElementByClass(dom, `txn`)
+
+    expect(getAttribute(trs, `lang`)).to.equal(targetLang)
+    expect(getAttribute(txn, `lang`)).to.equal(targetLang)
+
+
   })
 
 })

@@ -14,11 +14,11 @@ export default function convertUtterance(u, options) {
   const classString   = classes.join(` `)
   const header        = createHeader(u.metadata, options)
   const literal       = createLiteral(u.literal, options)
-  const phonetic      = createPhonetic(u.phonetic)
+  const phonetic      = createPhonetic(u.phonetic, options)
   const source        = createSource(u.speaker, u.source)
   const timespan      = createTimespan(u.startTime, u.endTime)
-  const transcript    = createTranscript(u.transcript)
-  const transcription = createTranscription(u.transcription)
+  const transcript    = createTranscript(u.transcript, options)
+  const transcription = createTranscription(u.transcription, options)
   const translation   = createTranslation(u.translation, options)
 
   return `<${ tag } class='${ classString }'>

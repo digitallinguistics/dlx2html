@@ -166,6 +166,36 @@ describe(`lines`, function() {
 
     })
 
+    it(`option: targetLang = undefined`, function() {
+
+      const scription = `
+      \\phon ɔ́gɔ̀tɛ́ɛ́rɛ̀rà
+      \\m    ó-ko-tɛ́ɛr-er-a
+      \\gl   pp-5-sing-appl-ind
+      `
+
+      const { dom } = parse(scription)
+      const phon = findElementByClass(dom, `phon`)
+
+      expect(getAttribute(phon, `lang`)).to.be.undefined
+
+    })
+
+    it(`option: targetLang`, function() {
+
+      const scription = `
+      \\phon ɔ́gɔ̀tɛ́ɛ́rɛ̀rà
+      \\m    ó-ko-tɛ́ɛr-er-a
+      \\gl   pp-5-sing-appl-ind
+      `
+
+      const { dom } = parse(scription, { targetLang: `guz` })
+      const phon = findElementByClass(dom, `phon`)
+
+      expect(getAttribute(phon, `lang`)).to.equal(`guz-fonipa`)
+
+    })
+
   })
 
   describe(`phonemic transcription`, function() {
