@@ -39,30 +39,30 @@ describe(`scription2html`, function() {
     expect(data.utterances).to.have.length(1)
   })
 
-  it(`wraps utterances in <div class=igl> by default`, function() {
+  it(`wraps utterances in <div class=igl> by default`, async function() {
 
-    const { dom } = parse(Swahili)
+    const { dom } = await parse(Swahili)
 
     expect(dom.childNodes).to.have.length(1)
     expect(dom.childNodes[0].tagName).to.equal(`div`)
 
   })
 
-  it(`converts single utterances`, function() {
-    const { dom } = parse(Swahili)
+  it(`converts single utterances`, async function() {
+    const { dom } = await parse(Swahili)
     expect(dom.childNodes).to.have.length(1)
   })
 
-  it(`converts multiple utterances`, function() {
+  it(`converts multiple utterances`, async function() {
 
     const scription = `${ Swahili }\n\n${ Swahili }`
-    const { dom }   = parse(scription)
+    const { dom }   = await parse(scription)
 
     expect(dom.childNodes).to.have.length(2)
 
   })
 
-  it(`option: analysisLang = undefined`, function() {
+  it(`option: analysisLang = undefined`, async function() {
 
     const scription = `
     # Swahili
@@ -73,7 +73,7 @@ describe(`scription2html`, function() {
     \\tln Te amo.
     `
 
-    const { dom } = parse(scription)
+    const { dom } = await parse(scription)
 
     const lit  = findElementByClass(dom, `lit`)
     const tln  = findElementByClass(dom, `tln`)
@@ -85,7 +85,7 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`option: analysisLang`, function() {
+  it(`option: analysisLang`, async function() {
 
     const scription = `
     # Swahili
@@ -97,7 +97,7 @@ describe(`scription2html`, function() {
     `
 
     const analysisLang = `sp`
-    const { dom }      = parse(scription, { analysisLang })
+    const { dom }      = await parse(scription, { analysisLang })
 
     const lit  = findElementByClass(dom, `lit`)
     const tln  = findElementByClass(dom, `tln`)
@@ -109,10 +109,10 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`option: classes`, function() {
+  it(`option: classes`, async function() {
 
     const classes = [`example`, `interlinear`]
-    const { dom } = parse(Swahili, { classes })
+    const { dom } = await parse(Swahili, { classes })
     const [ex]    = dom.childNodes
 
     const classString   = getAttribute(ex, `class`)
@@ -150,28 +150,31 @@ describe(`scription2html`, function() {
     expect(test).to.throw(`scription`)
   })
 
-  it(`option: tag`, function() {
+  it(`option: tag`, async function() {
 
     const tag     = `li`
-    const { dom } = parse(Swahili, { tag })
+    const { dom } = await parse(Swahili, { tag })
     const [ex]    = dom.childNodes
 
     expect(ex.tagName).to.equal(tag)
 
   })
 
-  it(`option: tag (validates)`, function() {
-    const test = () => parse(Swahili, { tag: 0 })
-    expect(test).to.throw(`tag`)
+  it(`option: tag (validates)`, async function() {
+    try {
+      await parse(Swahili, { tag: 0 })
+    } catch (error) {
+      expect(error.message).to.contain(`tag`)
+    }
   })
 
-  it(`option: targetLang = undefined`, function() {
+  it(`option: targetLang = undefined`, async function() {
 
     const scription = `
     \\trs Ninakupenda.↗
     `
 
-    const { dom } = parse(scription)
+    const { dom } = await parse(scription)
 
     const transcript = findElementByClass(dom, `trs`)
 
@@ -180,7 +183,7 @@ describe(`scription2html`, function() {
 
   })
 
-  it(`option: targetLang`, function() {
+  it(`option: targetLang`, async function() {
 
     const scription = `
     \\trs Ninakupenda.↗
@@ -188,7 +191,7 @@ describe(`scription2html`, function() {
     `
 
     const targetLang = `swa`
-    const { dom }    = parse(scription, { targetLang })
+    const { dom }    = await parse(scription, { targetLang })
     const trs        = findElementByClass(dom, `trs`)
     const txn        = findElementByClass(dom, `txn`)
 

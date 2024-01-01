@@ -1,4 +1,4 @@
-import convertUtterance from './utterance.js'
+import convertUtterance from './utterance/index.js'
 import scription2dlx    from '@digitallinguistics/scription2dlx'
 import validateOptions  from './options.js'
 

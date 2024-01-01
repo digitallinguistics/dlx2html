@@ -1,12 +1,12 @@
-import createHeader        from './lines/metadata.js'
-import createLiteral       from './lines/literal.js'
-import createPhonetic      from './lines/phonetic.js'
-import createSource        from './lines/source.js'
-import createTimespan      from './lines/timespan.js'
-import createTranscript    from './lines/transcript.js'
-import createTranscription from './lines/transcription.js'
-import createTranslation   from './lines/translation.js'
-import createWords         from './words.js'
+import createHeader        from './metadata.js'
+import createLiteral       from './literal.js'
+import createPhonetic      from './phonetic.js'
+import createSource        from './source.js'
+import createTimespan      from './timespan.js'
+import createTranscript    from './transcript.js'
+import createTranscription from './transcription.js'
+import createTranslation   from './translation.js'
+import createWords         from '../words/index.js'
 
 export default function convertUtterance(u, options) {
 

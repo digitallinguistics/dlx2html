@@ -12,13 +12,13 @@ import {
 
 import { ChitimachaText, OldLatin, Swahili } from '../samples/data/data.js'
 
-describe(`lines`, function() {
+describe(`utterance`, function() {
 
   describe(`free translation`, function() {
 
-    it(`renders`, function() {
+    it(`renders`, async function() {
 
-      const { dom } = parse(OldLatin)
+      const { dom } = await parse(OldLatin)
       const tln     = findElementsByClass(dom, `tln`)
 
       expect(tln).to.have.length(2)
@@ -32,7 +32,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`renders with emphasis`, function() {
+    it(`renders with emphasis`, async function() {
 
       // Mandinka, from ex. 2 of your dissertation
       const scription = `
@@ -49,7 +49,7 @@ describe(`lines`, function() {
       \\s   Creissels 2017: 46
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const tln     = findElementByClass(dom, `tln`)
       const b       = findElement(tln, el => getTagName(el) === `b`)
 
@@ -62,7 +62,7 @@ describe(`lines`, function() {
 
   describe(`literal translation`, function() {
 
-    it(`renders`, function() {
+    it(`renders`, async function() {
 
       const scription = `
       \\txn    xaa qapx guxna
@@ -73,7 +73,7 @@ describe(`lines`, function() {
       \\lit-sp se comen sus bocas
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const literal = findElementsByClass(dom, `lit`)
 
       expect(literal).to.have.length(2)
@@ -87,7 +87,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`renders with emphasis`, function() {
+    it(`renders with emphasis`, async function() {
 
       const scription = `# Causative-Reversive
       \\trs Satia’tawi*’t*á*hsi*!
@@ -96,7 +96,7 @@ describe(`lines`, function() {
       \\lit *un-cause* your body to be covered, uncover your body
       \\tln Take your coat off!`
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const literal = findElementByClass(dom, `lit`)
       const b       = findElement(literal, el => getTagName(el) === `b`)
 
@@ -108,19 +108,19 @@ describe(`lines`, function() {
 
   describe(`metadata`, function() {
 
-    it(`is not present when there is no data`, function() {
+    it(`is not present when there is no data`, async function() {
 
-      const { dom } = parse(Swahili)
+      const { dom } = await parse(Swahili)
       const header  = findElementByClass(dom, `ex-header`)
 
       expect(header).to.not.exist
 
     })
 
-    it(`creates the example header`, function() {
+    it(`creates the example header`, async function() {
 
       const scription = `# Swahili\n${ Swahili }`
-      const { dom }   = parse(scription)
+      const { dom }   = await parse(scription)
       const header    = findElementByClass(dom, `ex-header`)
 
       expect(header.childNodes[0].value).to.equal(`Swahili`)
@@ -131,7 +131,7 @@ describe(`lines`, function() {
 
   describe(`phonetic transcription`, function() {
 
-    it(`renders`, function() {
+    it(`renders`, async function() {
 
       const phonetic = `ɔ́gɔ̀tɛ́ɛ́rɛ̀rà`
 
@@ -141,14 +141,14 @@ describe(`lines`, function() {
       \\gl   pp-5-sing-appl-ind
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const el      = findElementByClass(dom, `phon`)
 
       expect(getTextContent(el)).to.equal(phonetic)
 
     })
 
-    it(`renders with emphasis`, function() {
+    it(`renders with emphasis`, async function() {
 
       const phonetic = `ɔ́gɔ̀*tɛ́ɛ́r*ɛ̀rà`
 
@@ -158,7 +158,7 @@ describe(`lines`, function() {
       \\gl   pp-5-*sing*-appl-ind
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const phon    = findElementByClass(dom, `phon`)
       const b       = findElement(phon, el => getTagName(el) === `b`)
 
@@ -166,7 +166,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`option: targetLang = undefined`, function() {
+    it(`option: targetLang = undefined`, async function() {
 
       const scription = `
       \\phon ɔ́gɔ̀tɛ́ɛ́rɛ̀rà
@@ -174,14 +174,14 @@ describe(`lines`, function() {
       \\gl   pp-5-sing-appl-ind
       `
 
-      const { dom } = parse(scription)
-      const phon = findElementByClass(dom, `phon`)
+      const { dom } = await parse(scription)
+      const phon    = findElementByClass(dom, `phon`)
 
       expect(getAttribute(phon, `lang`)).to.be.undefined
 
     })
 
-    it(`option: targetLang`, function() {
+    it(`option: targetLang`, async function() {
 
       const scription = `
       \\phon ɔ́gɔ̀tɛ́ɛ́rɛ̀rà
@@ -189,8 +189,8 @@ describe(`lines`, function() {
       \\gl   pp-5-sing-appl-ind
       `
 
-      const { dom } = parse(scription, { targetLang: `guz` })
-      const phon = findElementByClass(dom, `phon`)
+      const { dom } = await parse(scription, { targetLang: `guz` })
+      const phon    = findElementByClass(dom, `phon`)
 
       expect(getAttribute(phon, `lang`)).to.equal(`guz-fonipa`)
 
@@ -200,7 +200,7 @@ describe(`lines`, function() {
 
   describe(`phonemic transcription`, function() {
 
-    it(`produces one line per orthography`, function() {
+    it(`produces one line per orthography`, async function() {
 
       const scription = `
       \\txn-mod  waxdungu qasi
@@ -211,7 +211,7 @@ describe(`lines`, function() {
       \\tln      one day a man
       `
 
-      const { dom }     = parse(scription)
+      const { dom }     = await parse(scription)
       const [ex]        = dom.childNodes
       const transcripts = findElementsByClass(ex, `txn`)
 
@@ -229,7 +229,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`renders emphasis`, function() {
+    it(`renders emphasis`, async function() {
 
       const scription = `
       \\txn  wax*d*ungu qasi
@@ -238,7 +238,7 @@ describe(`lines`, function() {
       \\tln  one day a man
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const txn     = findElementByClass(dom, `txn`)
       const b       = findElement(txn, el => getTagName(el) === `b`)
 
@@ -250,16 +250,16 @@ describe(`lines`, function() {
 
   describe(`source`, function() {
 
-    it(`is not present when there is no data`, function() {
+    it(`is not present when there is no data`, async function() {
 
-      const { dom } = parse(Swahili)
+      const { dom } = await parse(Swahili)
       const source  = findElementByClass(dom, `ex-source`)
 
       expect(source).not.to.exist
 
     })
 
-    it(`contains the speaker data`, function() {
+    it(`contains the speaker data`, async function() {
 
       const scription = `
       \\txn ninaenda
@@ -269,7 +269,7 @@ describe(`lines`, function() {
       \\sp  Hamisi
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const source  = findElementByClass(dom, `ex-source`)
       const text    = getTextContent(source)
 
@@ -277,7 +277,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`contains the bibliographic source data`, function() {
+    it(`contains the bibliographic source data`, async function() {
 
       const scription = `
       \\txn ninaenda
@@ -287,7 +287,7 @@ describe(`lines`, function() {
       \\s   Hieber 2018: 1
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const source  = findElementByClass(dom, `ex-source`)
       const text    = getTextContent(source)
 
@@ -295,7 +295,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`contains both speaker and source data`, function() {
+    it(`contains both speaker and source data`, async function() {
 
       const scription = `
       \\txn ninaenda
@@ -306,7 +306,7 @@ describe(`lines`, function() {
       \\s   Hieber 2018: 1
       `
 
-      const { dom } = parse(scription)
+      const { dom } = await parse(scription)
       const source  = findElementByClass(dom, `ex-source`)
       const text    = getTextContent(source)
 
@@ -316,7 +316,7 @@ describe(`lines`, function() {
 
   })
 
-  it(`timespan`, function() {
+  it(`timespan`, async function() {
 
     const scription = `
     \\txn ninaenda
@@ -326,7 +326,7 @@ describe(`lines`, function() {
     \\t   1.234-5.678
     `
 
-    const { dom }  = parse(scription)
+    const { dom }  = await parse(scription)
     const timespan = findElementByClass(dom, `timespan`)
     const text     = getTextContent(timespan)
 
@@ -337,9 +337,9 @@ describe(`lines`, function() {
 
   describe(`transcript`, function() {
 
-    it(`produces one line per orthography`, function() {
+    it(`produces one line per orthography`, async function() {
 
-      const { dom }     = parse(ChitimachaText)
+      const { dom }     = await parse(ChitimachaText)
       const [ex]        = dom.childNodes
       const transcripts = findElementsByClass(ex, `trs`)
 
@@ -354,7 +354,7 @@ describe(`lines`, function() {
 
     })
 
-    it(`renders emphasis`, function() {
+    it(`renders emphasis`, async function() {
 
       const scription = `# Causative-Reversive
       \\trs Satia’tawi*’t*á*hsi*!
@@ -363,7 +363,7 @@ describe(`lines`, function() {
       \\lit *un-cause* your body to be covered, uncover your body
       \\tln Take your coat off!`
 
-      const { dom }    = parse(scription)
+      const { dom }    = await parse(scription)
       const transcript = findElementByClass(dom, `trs`)
       const b          = findElement(transcript, el => getTagName(el) === `b`)
 

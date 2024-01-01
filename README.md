@@ -126,6 +126,8 @@ If the input is a string containing only whitespace, an empty string is returned
 
 This section describes the structure of the HTML output by this library, and the classes added to the HTML elements. You can see sample HTML output by the program in the `samples/` folder.
 
+**Note:** The output HTML has lots of extraneous whitespace and is poorly formatted. If you want more readable output, use a formatting library like [Prettier][Prettier] to format the result.
+
 Each utterance/example in the original scription text is wrapped in a `<div class=igl>` element by default. You can customize both the tag that is used for the wrapper and the classes applied to it with the `tag` and `classes` options. For example, to wrap each utterance in `<li class=interlinear>`, you would provide the following options:
 
 ```js
@@ -165,6 +167,7 @@ When the scription format allows for data in multiple orthographies, the orthogr
 [learn-Node]:    https://nodejs.dev/en/learn/
 [Leipzig]:       https://www.eva.mpg.de/lingua/resources/glossing-rules.php
 [Node]:          https://nodejs.org/
+[Prettier]:      https://prettier.io/
 [releases]:      https://github.com/digitallinguistics/scription2html/releases
 [scription]:     https://scription.digitallinguistics.io/
 [scription2dlx]: https://github.com/digitallinguistics/scription2dlx/
