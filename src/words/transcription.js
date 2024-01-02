@@ -1,3 +1,5 @@
+import addEmphasis from '../utilities/addEmphasis.js'
+
 export default function createTranscription(data, { targetLang }) {
 
   const lang = targetLang ? `lang='${ targetLang }'` : ``
@@ -5,7 +7,7 @@ export default function createTranscription(data, { targetLang }) {
 
   for (const ortho in data) {
     const txn = data[ortho]
-    html += `<span class=w-txn data-ortho='${ ortho }' ${ lang }>${ txn }</span>\n`
+    html += `<span class=w-txn data-ortho='${ ortho }' ${ lang }>${ addEmphasis(txn) }</span>\n`
   }
 
   return html

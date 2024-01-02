@@ -60,4 +60,17 @@ describe(`words`, function() {
 
   })
 
+  it.only(`word transcription supports emphasis`, async function() {
+
+    const scription = `
+    \\w   *waxdungu* qasi
+    \\wlt *day-one*  man
+    `
+
+    const { dom, html } = await parse(scription)
+    const b             = findElement(dom, el => getTagName(el) === `b`)
+
+    expect(getTextContent(b)).to.equal(`waxdungu`)
+
+  })
 })
