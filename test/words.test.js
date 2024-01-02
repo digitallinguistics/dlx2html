@@ -3,6 +3,11 @@ import findElementByClass from './utilities/findElementByClass.js'
 import { getTextContent } from '../node_modules/@web/parse5-utils/src/index.js'
 import parse              from './utilities/convertAndParse.js'
 
+import {
+  findElement,
+  getTagName,
+} from '@web/parse5-utils'
+
 describe(`words`, function() {
 
   it(`renders one HTML word per linguistic word`, async function() {
@@ -46,7 +51,7 @@ describe(`words`, function() {
     \\tln    one day a man
     `
 
-    const { dom, html }           = await parse(scription)
+    const { dom }                 = await parse(scription)
     const wordsContainer          = findElementByClass(dom, `words`)
     const [firstWord, secondWord] = wordsContainer.childNodes.filter(node => node.tagName === `li`)
 
@@ -73,4 +78,40 @@ describe(`words`, function() {
     expect(getTextContent(b)).to.equal(`waxdungu`)
 
   })
+
+  it(`word literal translation (single language)`, async function() {
+
+    const scription = `
+    \\w   waxdungu qasi
+    \\wlt one.day  a.man
+    `
+
+    const { dom }                 = await parse(scription)
+    const wordsContainer          = findElementByClass(dom, `words`)
+    const [firstWord, secondWord] = wordsContainer.childNodes.filter(node => node.tagName === `li`)
+
+    expect(getTextContent(firstWord)).to.include(`one.day`)
+    expect(getTextContent(secondWord)).to.include(`a.man`)
+
+  })
+
+  it(`word literal translation (single language)`, async function() {
+
+    const scription = `
+    \\w      waxdungu qasi
+    \\wlt-en one.day  a.man
+    \\wlt-sp un.día   un.hombre
+    `
+
+    const { dom }                 = await parse(scription)
+    const wordsContainer          = findElementByClass(dom, `words`)
+    const [firstWord, secondWord] = wordsContainer.childNodes.filter(node => node.tagName === `li`)
+
+    expect(getTextContent(firstWord)).to.include(`one.day`)
+    expect(getTextContent(firstWord)).to.include(`un.día`)
+    expect(getTextContent(secondWord)).to.include(`a.man`)
+    expect(getTextContent(secondWord)).to.include(`un.hombre`)
+
+  })
+
 })
