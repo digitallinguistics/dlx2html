@@ -65,21 +65,21 @@ describe(`words`, function() {
 
   })
 
-  it.only(`word transcription supports emphasis`, async function() {
+  it(`word transcription supports emphasis`, async function() {
 
     const scription = `
     \\w   *waxdungu* qasi
-    \\wlt *day-one*  man
+    \\wlt *one.day*  man
     `
 
-    const { dom, html } = await parse(scription)
-    const b             = findElement(dom, el => getTagName(el) === `b`)
+    const { dom } = await parse(scription)
+    const b       = findElement(dom, el => getTagName(el) === `b`)
 
     expect(getTextContent(b)).to.equal(`waxdungu`)
 
   })
 
-  it(`word literal translation (single language)`, async function() {
+  it(`literal word translation (single language)`, async function() {
 
     const scription = `
     \\w   waxdungu qasi
@@ -95,7 +95,7 @@ describe(`words`, function() {
 
   })
 
-  it(`word literal translation (single language)`, async function() {
+  it(`literal word translation (single language)`, async function() {
 
     const scription = `
     \\w      waxdungu qasi
@@ -111,6 +111,20 @@ describe(`words`, function() {
     expect(getTextContent(firstWord)).to.include(`un.día`)
     expect(getTextContent(secondWord)).to.include(`a.man`)
     expect(getTextContent(secondWord)).to.include(`un.hombre`)
+
+  })
+
+  it(`literal word translation supports emphasis`, async function() {
+
+    const scription = `
+    \\w   waxdungu  qasi
+    \\wlt *one.day* man
+    `
+
+    const { dom } = await parse(scription)
+    const b       = findElement(dom, el => getTagName(el) === `b`)
+
+    expect(getTextContent(b)).to.equal(`one.day`)
 
   })
 
