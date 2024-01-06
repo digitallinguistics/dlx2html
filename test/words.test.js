@@ -189,4 +189,29 @@ describe(`words`, function() {
 
   })
 
+  describe(`glosses`, function() {
+
+    it.only(`renders (with non-breaking hyphens)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom, html } = await parse(scription)
+      const morphemes     = findElementByClass(dom, `w-gl`)
+
+      console.log(html)
+      expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
+
+    })
+
+    it(`supports multiple analysis languages`)
+
+    it(`supports emphasis`)
+
+  })
+
 })
