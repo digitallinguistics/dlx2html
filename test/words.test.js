@@ -191,7 +191,7 @@ describe(`words`, function() {
 
   describe(`glosses`, function() {
 
-    it.only(`renders (with non-breaking hyphens)`, async function() {
+    it(`renders (with non-breaking hyphens)`, async function() {
 
       const scription = `
       ninakupenda
@@ -203,7 +203,6 @@ describe(`words`, function() {
       const { dom, html } = await parse(scription)
       const morphemes     = findElementByClass(dom, `w-gl`)
 
-      console.log(html)
       expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
 
     })
