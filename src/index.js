@@ -4,6 +4,7 @@ import validateOptions  from './options.js'
 
 const defaultOptions = {
   classes:   [`igl`],
+  glosses:   false,
   scription: {},
   tag:       `div`,
 }

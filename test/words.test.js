@@ -6,6 +6,7 @@ import parse               from './utilities/convertAndParse.js'
 
 import {
   findElement,
+  findElements,
   getTagName,
 } from '@web/parse5-utils'
 
@@ -149,7 +150,7 @@ describe(`words`, function() {
       `
 
       const { dom }   = await parse(scription)
-      const morphemes = findElementByClass(dom, `w-m`)
+      const morphemes = findElementByClass(dom, `morphemes`)
 
       expect(getTextContent(morphemes)).to.equal(`ni‑na‑ku‑pend‑a`) // non-breaking hyphens
 
@@ -164,7 +165,7 @@ describe(`words`, function() {
       `
 
       const { dom, html } = await parse(scription)
-      const [mod, swad]   = findElementsByClass(dom, `w-m`)
+      const [mod, swad]   = findElementsByClass(dom, `morphemes`)
 
       expect(getTextContent(mod)).to.equal(`waxt‑qungu`) // non-breaking hypens
       expect(getTextContent(swad)).to.equal(`wašt‑ʔungu`) // non-breaking hypens
@@ -200,16 +201,86 @@ describe(`words`, function() {
       I love you
       `
 
-      const { dom, html } = await parse(scription)
-      const morphemes     = findElementByClass(dom, `w-gl`)
+      const { dom }   = await parse(scription)
+      const morphemes = findElementByClass(dom, `glosses`)
 
       expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
 
     })
 
-    it(`supports multiple analysis languages`)
+    it(`supports multiple analysis languages`, async function() {
 
-    it(`supports emphasis`)
+      const scription = `
+      \\txn   ninakupenda
+      \\m     ni-na-ku-pend-a
+      \\gl-en 1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      \\gl-sp 1SG.SJ-PRES-2SG.OJ-amar-IND
+      \\tln   I love you
+      `
+
+      const { dom }                   = await parse(scription)
+      const [firstGloss, secondGloss] = findElementsByClass(dom, `glosses`)
+
+      expect(getTextContent(firstGloss)).to.include(`SUBJ`)
+      expect(getTextContent(secondGloss)).to.include(`SJ`)
+
+    })
+
+    it(`supports emphasis`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-*2SG.OBJ*-love-IND
+      I love you
+      `
+
+      const { dom } = await parse(scription)
+      const b       = findElement(dom, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`2SG.OBJ`)
+
+    })
+
+    it(`option: glosses = false (default)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom } = await parse(scription)
+      const abbr    = findElement(dom, el => getTagName(el) === `abbr`)
+
+      expect(abbr).not.to.exist
+
+    })
+
+    it(`option: glosses = true`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom }     = await parse(scription, { glosses: true })
+      const glosses     = findElements(dom, el => getTagName(el) === `abbr`)
+      const [num, caps] = glosses
+
+      expect(getTextContent(num)).to.equal(`1`)
+      expect(getTextContent(caps)).to.equal(`SG`)
+
+      expect(glosses).to.have.length(8)
+
+    })
+
+    it(`option: glosses = array`)
+
+    it(`option: glosses = object`)
 
   })
 
