@@ -267,20 +267,34 @@ describe(`words`, function() {
       I love you
       `
 
-      const { dom }     = await parse(scription, { glosses: true })
-      const glosses     = findElements(dom, el => getTagName(el) === `abbr`)
-      const [num, caps] = glosses
-
-      expect(getTextContent(num)).to.equal(`1`)
-      expect(getTextContent(caps)).to.equal(`SG`)
+      const { dom }       = await parse(scription, { glosses: true })
+      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
 
       expect(glosses).to.have.length(8)
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`SG`)
 
     })
 
-    it(`option: glosses = array`)
+    it(`option: glosses (lowercase glosses)`, async function() {
 
-    it(`option: glosses = object`)
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1sg.SUBJ-PRES-2sg.OBJ-love-IND
+      I love you
+      `
+
+      const { dom }       = await parse(scription, { glosses: true })
+      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(glosses).to.have.length(8)
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`sg`)
+
+    })
 
   })
 

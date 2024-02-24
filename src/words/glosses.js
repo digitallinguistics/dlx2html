@@ -1,7 +1,8 @@
 import addEmphasis    from '../utilities/addEmphasis.js'
 import replaceHyphens from '../utilities/replaceHyphens.js'
 
-const glossRegExp = /(?<gloss>[1-4]|[A-Z]+)/gv
+const glossRegExp  = /(?<gloss>[1-4]|[A-Z]+)/gv
+const numberRegExp = /\b(?<number>sg|du|pl)\b/gv
 
 function createGlossLine(glosses, language, option) {
 
@@ -21,7 +22,9 @@ function createGlossLine(glosses, language, option) {
  * @returns {string}
  */
 function wrapGlosses(glosses) {
-  return glosses.replaceAll(glossRegExp, `<abbr>$1</abbr>`)
+  return glosses
+  .replaceAll(glossRegExp, `<abbr>$1</abbr>`)
+  .replaceAll(numberRegExp, `<abbr>$1</abbr>`)
 }
 
 export default function createGlosses(data, { analysisLang, glosses: glossesOption }) {
