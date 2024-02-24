@@ -3,10 +3,11 @@ import scription2dlx    from '@digitallinguistics/scription2dlx'
 import validateOptions  from './options.js'
 
 const defaultOptions = {
-  classes:   [`igl`],
-  glosses:   false,
-  scription: {},
-  tag:       `div`,
+  abbreviations: {},
+  classes:       [`igl`],
+  glosses:       false,
+  scription:     {},
+  tag:           `div`,
 }
 
 export default function scription2html(input, userOptions = {}) {

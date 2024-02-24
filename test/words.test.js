@@ -7,6 +7,7 @@ import parse               from './utilities/convertAndParse.js'
 import {
   findElement,
   findElements,
+  getAttribute,
   getTagName,
 } from '@web/parse5-utils'
 
@@ -293,6 +294,30 @@ describe(`words`, function() {
       expect(glosses).to.have.length(8)
       expect(getTextContent(person)).to.equal(`1`)
       expect(getTextContent(num)).to.equal(`sg`)
+
+    })
+
+    it(`option: abbreviations`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const abbreviations = {
+        1:  `first person`,
+        SG:  `singular`,
+      }
+
+      const { dom }       = await parse(scription, { abbreviations, glosses: true })
+      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(glosses).to.have.length(8)
+      expect(getAttribute(person, `title`)).to.equal(`first person`)
+      expect(getAttribute(num, `title`)).to.equal(`singular`)
 
     })
 

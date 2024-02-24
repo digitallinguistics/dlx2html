@@ -4,11 +4,21 @@ import replaceHyphens from '../utilities/replaceHyphens.js'
 const glossRegExp  = /(?<gloss>[1-4]|[A-Z]+)/gv
 const numberRegExp = /\b(?<number>sg|du|pl)\b/gv
 
-function createGlossLine(glosses, language, option) {
+function createGlossLine(glosses, language, { abbreviations, glosses: glossesOption }) {
 
   const lang = language ? `lang='${ language }'` : ``
 
-  if (option === true) glosses = wrapGlosses(glosses)
+  const wrapGloss = gloss => {
+    const title = abbreviations[gloss] ? `title='${ abbreviations[gloss] }'` : ``
+    return `<abbr ${ title }>${ gloss }</abbr>`
+  }
+
+  if (glossesOption === true) {
+    glosses = glosses
+    .replaceAll(glossRegExp, wrapGloss)
+    .replaceAll(numberRegExp, wrapGloss)
+  }
+
   glosses = replaceHyphens(glosses)
   glosses = addEmphasis(glosses)
 
@@ -16,29 +26,18 @@ function createGlossLine(glosses, language, option) {
 
 }
 
-/**
- * Finds all numbers and capitalized glosses in a string and wraps them in `<abbr>` tags.
- * @param {string} glosses
- * @returns {string}
- */
-function wrapGlosses(glosses) {
-  return glosses
-  .replaceAll(glossRegExp, `<abbr>$1</abbr>`)
-  .replaceAll(numberRegExp, `<abbr>$1</abbr>`)
-}
-
-export default function createGlosses(data, { analysisLang, glosses: glossesOption }) {
+export default function createGlosses(data, options) {
 
   if (!data) return ``
 
   if (typeof data === `string`) {
-    return createGlossLine(data, analysisLang, glossesOption)
+    return createGlossLine(data, options.analysisLang, options)
   }
 
   let html = ``
 
   for (const lang in data) {
-    html += createGlossLine(data[lang], lang, glossesOption)
+    html += createGlossLine(data[lang], lang, options)
   }
 
   return html
