@@ -24,6 +24,9 @@
     "url": "https://github.com/digitallinguistics/scription2html.git"
   },
   "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "node build/index.js",
     "stop-only": "stop-only --folder src",
