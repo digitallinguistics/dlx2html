@@ -151,7 +151,7 @@ describe(`words`, function() {
       `
 
       const { dom }   = await parse(scription)
-      const morphemes = findElementByClass(dom, `morphemes`)
+      const morphemes = findElementByClass(dom, `m`)
 
       expect(getTextContent(morphemes)).to.equal(`ni‑na‑ku‑pend‑a`) // non-breaking hyphens
 
@@ -165,8 +165,8 @@ describe(`words`, function() {
       \\gl     day-one  man
       `
 
-      const { dom, html } = await parse(scription)
-      const [mod, swad]   = findElementsByClass(dom, `morphemes`)
+      const { dom }     = await parse(scription)
+      const [mod, swad] = findElementsByClass(dom, `m`)
 
       expect(getTextContent(mod)).to.equal(`waxt‑qungu`) // non-breaking hypens
       expect(getTextContent(swad)).to.equal(`wašt‑ʔungu`) // non-breaking hypens

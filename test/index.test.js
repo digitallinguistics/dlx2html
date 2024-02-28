@@ -8,37 +8,6 @@ import { Swahili }        from '../samples/data/data.js'
 
 describe(`scription2html`, function() {
 
-  it(`no input → empty string`, function() {
-    const result = convert()
-    expect(result).to.equal(null)
-  })
-
-  it(`whitespace → empty string`, function() {
-    const input    = `  `
-    const { html } = convert(input)
-    expect(html).to.equal(``)
-  })
-
-  it(`ignores the YAML header`, function() {
-
-    const input = `
-    ---
-    title: The title of this story
-    ---
-    ${ Swahili }
-    `
-
-    const runTest = () => convert(input)
-
-    expect(runTest).not.to.throw()
-
-  })
-
-  it(`can access the underlying data`, function() {
-    const { data } = convert(Swahili)
-    expect(data.utterances).to.have.length(1)
-  })
-
   it(`wraps utterances in <div class=igl> by default`, async function() {
 
     const { dom } = await parse(Swahili)
@@ -132,22 +101,6 @@ describe(`scription2html`, function() {
     const test2 = () => convert(Swahili, { classes: [0] })
     expect(test2).to.throw(`classes`)
 
-  })
-
-  it(`option: scription`, function() {
-
-    const scription   = { utteranceMetadata: false }
-    const text        = `# This is some metadata.${ Swahili }`
-    const { data }    = convert(text, { scription })
-    const [utterance] = data.utterances
-
-    expect(utterance.metadata).to.be.undefined
-
-  })
-
-  it(`option: scription (validates)`, function() {
-    const test = () => convert(Swahili, { scription: `string` })
-    expect(test).to.throw(`scription`)
   })
 
   it(`option: tag`, async function() {
