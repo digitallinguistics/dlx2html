@@ -1,0 +1,12 @@
+authors:
+  - family-names: Hieber
+    given-names:  Daniel W.
+    orcid:        'https://orcid.org/0000-0002-1411-3773'
+cff-version:     1.2.0
+date-released:   2024-02-27
+doi:             '10.5281/zenodo.10720085'
+license:         MIT
+repository-code: 'https://github.com/digitallinguistics/dlx2html'
+title:           '@digitallinguistics/dlx2html'
+type:            software
+version:         0.1.1
