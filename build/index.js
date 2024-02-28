@@ -1,7 +1,8 @@
-import convert           from '../src/index.js'
+import dlx2html          from '../src/index.js'
 import esbuild           from 'esbuild'
 import { fileURLToPath } from 'node:url'
 import path              from 'path'
+import scription2dlx     from '@digitallinguistics/scription2dlx'
 
 import { readdir, readFile, writeFile } from 'node:fs/promises'
 
@@ -37,7 +38,8 @@ for (const file of files) {
   const scription    = await readFile(path.resolve(__dirname, `../samples/data`, file), `utf8`)
   const filename     = path.basename(file, `.txt`)
   let   content      = `<h1>${ filename }</h1>`
-  const { html }     = convert(scription, { classes: [`ex`, `igl`], tag: `li` })
+  const data         = scription2dlx(scription)
+  const { html }     = dlx2html(data, { classes: [`ex`, `igl`], tag: `li` })
   const interlinears = `<ul class=examples>${ html }</ul>`
 
   content += `\n${ interlinears }`

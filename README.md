@@ -100,8 +100,6 @@ To use `dlx2html` in the browser:
 
 Calling the `dlx2html` function returns an HTML string.
 
-If no input, an empty string, or a string containing only whitespace is provided, an empty string is returned.
-
 ## Options
 
 | Option          | type          | Default   | Description                                                                                                                                                                                                                                                                                                                                                  |
