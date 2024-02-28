@@ -105,5 +105,7 @@ dist
 
 # Project Files
 nodemon.json
+dlx2html.js
+dlx2html.bundle.js
 scription2html.js
 scription2html.bundle.js

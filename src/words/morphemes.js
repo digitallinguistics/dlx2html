@@ -8,7 +8,7 @@ export default function createMorphemes(data, { targetLang }) {
 
   for (const ortho in data) {
     const morphemes = addEmphasis(replaceHyphens(data[ortho]))
-    html += `<span class=morphemes data-ortho='${ ortho }' ${ lang }>${ morphemes }</span>`
+    html += `<span class=m data-ortho='${ ortho }' ${ lang }>${ morphemes }</span>`
   }
 
   return html

@@ -17,7 +17,7 @@ await esbuild.build({
   bundle:      true,
   entryPoints: [path.resolve(__dirname, `../src/index.js`)],
   minify:      true,
-  outfile:     `scription2html.js`,
+  outfile:     `dlx2html.js`,
 })
 
 // Build samples
