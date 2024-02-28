@@ -22,7 +22,7 @@ The `dlx2html` library does not add any styling to the output HTML. Users should
 
 If using this library for research, please cite it using the model below:
 
-> Hieber, Daniel W. {year}. @digitallinguistics/dlx2html. <https://github.com/digitallinguistics/dlx2html/>
+> Hieber, Daniel W. {year}. @digitallinguistics/dlx2html. <https://github.com/digitallinguistics/dlx2html/>. DOI: [10.5281/zenodo.10720085](https://zenodo.org/doi/10.5281/zenodo.10720085).
 
 ## Samples
 
