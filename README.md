@@ -18,7 +18,7 @@ These interlinear glossed examples follow a very specific format, originally spe
 
 The `dlx2html` library takes one or more interlinear glosses in the DaFoDiL format and converts them to HTML for representing linguistic examples on the web.
 
-The `dlx2html` library does not add any styling to the output HTML. Users should either add their own CSS styles, or use the compatible [Digital Linguistics Style Library][Styles]. The structure of the output HTML is described below.
+The `dlx2html` library does not add any styling to the output HTML. Users should either add their own CSS styles, or use the compatible [Digital Linguistics Style Library][Styles]. The structure of the output HTML and CSS classes are described below.
 
 If using this library for research, please cite it using the model below:
 
@@ -168,6 +168,7 @@ When the data occurs in multiple orthographies, the orthography of the data is s
 ```
 
 <!-- Links -->
+[DaFoDiL]:       https://format.digitallinguistics.io/
 [lang-tags]:     https://datatracker.ietf.org/doc/html/rfc5646
 [learn-Node]:    https://nodejs.dev/en/learn/
 [Leipzig]:       https://www.eva.mpg.de/lingua/resources/glossing-rules.php
