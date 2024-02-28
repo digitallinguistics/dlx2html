@@ -1,4 +1,4 @@
-# dlx2html 🚧 UNDER CONSTRUCTION 🚧
+# dlx2html
 
 A JavaScript library for converting linguistic to HTML for presenting on the web.
 
