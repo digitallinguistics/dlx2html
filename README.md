@@ -104,7 +104,7 @@ Calling the `dlx2html` function returns an HTML string.
 
 | Option          | type          | Default   | Description                                                                                                                                                                                                                                                                                                                                                  |
 | --------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `abbreviations` | Object        | `{}`      | An object hash providing the full descriptions of gloss abbreviations, e.g. `"sg"` => `"singular"`. If present, these will be used to populate the `title` attribute of `<abbr>` elements for glosses.                                                                                                                                                       |
+| `abbreviations` | Object        | `{}`      | An object hash providing the full descriptions of gloss abbreviations, e.g. `"sg"` => `"singular"`. If present, these will be used to populate the `title` attribute of `<abbr>` elements for glosses. Note that the abbreviations are case-sensitive.                                                                                                       |
 | `analysisLang`  | String        | undefined | An [IETF language tag][lang-tags] to use as the default value of the `lang` attribute for any data in the analysis language (metadata, literal translation, free translation, glosses, literal word translation). If `undefined`, no `lang` tag is added, which means that browsers will assume that the analysis language is the same as the HTML document. |
 | `classes`       | Array<String> | `['igl']` | An array of classes to apply to the wrapper element.                                                                                                                                                                                                                                                                                                         |
 | `glosses`       | Boolean       | `false`   | Options for wrapping glosses in `<abbr>` tags.<br><br>If set to `false` (default), no `<abbr>` tags are added to the glosses.<br><br>If set to `true`, an `<abbr>` tag is wrapped around any glosses in CAPS, any numbers, and any of `sg`, `du`, or `pl` (lowercased).                                                                                      |
@@ -136,20 +136,20 @@ const options = {
 
 The CSS classes for each line type are as follows:
 
-| Line                   | CSS Class    |
-| ---------------------- | ------------ |
-| metadata               | `ex-header`  |
-| source                 | `ex-source`  |
-| transcript             | `trs`        |
-| phonemic transcription | `txn`        |
-| phonetic transcription | `phon`       |
-| word transcription     | `w`          |
-| morphemic analysis     | `m`          |
-| glosses                | `glosses`    |
-| literal translation    | `lit`        |
-| timespan               | `timespan`   |
-| free translation       | `tln`        |
-| word translation       | `wlt`        |
+| Line                   | CSS Class   |
+| ---------------------- | ----------- |
+| metadata               | `ex-header` |
+| source                 | `ex-source` |
+| transcript             | `trs`       |
+| phonemic transcription | `txn`       |
+| phonetic transcription | `phon`      |
+| word transcription     | `w`         |
+| morphemic analysis     | `m`         |
+| glosses                | `glosses`   |
+| literal translation    | `lit`       |
+| timespan               | `timespan`  |
+| free translation       | `tln`       |
+| word translation       | `wlt`       |
 
 If the language of the text is specified, it is set as the value of the `lang` attribute for data in the target language wherever relevant. Whenever the language of analysis data (metadata, glosses, translations, etc.) is specified, it is passed through to the `lang` attribute of the relevant analysis language elements (`<p class=tln lang=en>`).
 
