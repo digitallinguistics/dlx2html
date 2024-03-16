@@ -12,6 +12,8 @@ export default function dlx2html(data, userOptions = {}) {
 
   validateOptions(userOptions)
 
+  if (!data?.utterances?.length) return ``
+
   const computedOptions = Object.assign({}, defaultOptions, userOptions)
   const html            = data.utterances.map(u => convertUtterance(u, computedOptions)).join(``)
 
