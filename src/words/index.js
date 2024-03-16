@@ -16,12 +16,11 @@ export default function createWords(words, options) {
     const morphemes     = createMorphemes(word.analysis, options)
     const transcription = createTranscription(word.transcription, options)
 
-    html += `<li class=word>
-      ${ transcription }
-      ${ literal }
-      ${ morphemes }
-      ${ glosses }
-    </li>`
+    const lines = [transcription, morphemes, glosses, literal]
+    .filter(Boolean)
+    .join(``)
+
+    html += `<li class=word>${ lines }</li>`
 
   }
 
