@@ -126,6 +126,15 @@ const options = {
 }
 ```
 
+You can apply three different types of emphasis to the data:
+
+| Scription    | HTML Output             | Renders As            |
+| ------------ | ----------------------- | --------------------- |
+| `***text***` | `<strong>text</strong>` | <strong>text</strong> |
+| `**text**`   | `<em>text</em>`         | <em>text</em>         |
+| `*text*`     | `<b>text</b>`           | <b>text</b>           |
+| `_text_`     | `<u>text</u>`           | <u>text</u>           |
+
 ### Additional Notes
 
 - The speaker (`\sp`) and source (`\s`) data are combined into a single element strutured as follows: `<p class=ex-source>{speaker} ({source})</p>`.
