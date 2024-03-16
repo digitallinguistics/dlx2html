@@ -23,16 +23,19 @@ export default function convertUtterance(u, options) {
   const { classes, tag } = options
   const classString      = classes.join(` `)
 
-  return `<${ tag } class='${ classString }'>
-    ${ header }
-    ${ transcript }
-    ${ transcription }
-    ${ phonetic }
-    ${ words }
-    ${ translation }
-    ${ literal }
-    ${ source }
-    ${ timespan }
-  </${ tag }>`
+  const lines = [
+    header,
+    transcript,
+    transcription,
+    phonetic,
+    words,
+    translation,
+    literal,
+    source,
+    timespan,
+  ].filter(Boolean)
+  .join(``)
+
+  return `<${ tag } class='${ classString }'>${ lines }</${ tag }>`
 
 }
