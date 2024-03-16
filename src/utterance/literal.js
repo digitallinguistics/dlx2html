@@ -6,7 +6,7 @@ export default function createLiteral(data, { analysisLang }) {
 
   if (typeof data === `string`) {
     const lang = analysisLang ? `lang='${ analysisLang }'` : ``
-    return `<p class=lit ${ lang }>${ addEmphasis(data) }</p>`
+    return `<p class=lit>lit. <span class=tln ${ lang }>${ addEmphasis(data) }</span></p>`
   }
 
   let html = ``
