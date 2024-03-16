@@ -13,7 +13,7 @@ export default function createLiteral(data, { analysisLang }) {
 
   for (const lang in data) {
     const lit = data[lang]
-    html += `<p class=lit lang='${ lang }'>${ addEmphasis(lit) }</p>`
+    html += `<p class=lit'>lit. <span class=tln lang='${ lang }>${ addEmphasis(lit) }</span></p>`
   }
 
   return html
