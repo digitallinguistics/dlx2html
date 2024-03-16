@@ -6,7 +6,7 @@ import parse              from './utilities/convertAndParse.js'
 import parseClassString   from './utilities/parseClassString.js'
 import { Swahili }        from '../samples/data/data.js'
 
-describe(`scription2html`, function() {
+describe(`dlx2html`, function() {
 
   it(`wraps utterances in <div class=igl> by default`, async function() {
 
@@ -66,13 +66,14 @@ describe(`scription2html`, function() {
     `
 
     const analysisLang = `sp`
-    const { dom }      = await parse(scription, { analysisLang })
+    const { dom, html }      = await parse(scription, { analysisLang })
 
-    const lit  = findElementByClass(dom, `lit`)
-    const tln  = findElementByClass(dom, `tln`)
-    const meta = findElementByClass(dom, `ex-header`)
+    const lit                = findElementByClass(dom, `lit`)
+    const tln                = findElementByClass(dom, `tln`)
+    const meta               = findElementByClass(dom, `ex-header`)
+    const literalTranslation = findElementByClass(lit, `tln`)
 
-    expect(getAttribute(lit, `lang`)).to.equal(analysisLang)
+    expect(getAttribute(literalTranslation, `lang`)).to.equal(analysisLang)
     expect(getAttribute(tln, `lang`)).to.equal(analysisLang)
     expect(getAttribute(meta, `lang`)).to.equal(analysisLang)
 

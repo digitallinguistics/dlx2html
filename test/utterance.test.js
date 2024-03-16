@@ -79,11 +79,13 @@ describe(`utterance`, function() {
       expect(literal).to.have.length(2)
 
       const [eng, spa] = literal
+      const engLiteral = findElementByClass(eng, `tln`)
+      const spaLiteral = findElementByClass(spa, `tln`)
 
-      expect(getAttribute(eng, `lang`)).to.equal(`en`)
-      expect(getAttribute(spa, `lang`)).to.equal(`sp`)
-      expect(getTextContent(eng)).to.equal(`they ate each other's mouths`)
-      expect(getTextContent(spa)).to.equal(`se comen sus bocas`)
+      expect(getAttribute(engLiteral, `lang`)).to.equal(`en`)
+      expect(getAttribute(spaLiteral, `lang`)).to.equal(`sp`)
+      expect(getTextContent(engLiteral)).to.equal(`they ate each other's mouths`)
+      expect(getTextContent(spaLiteral)).to.equal(`se comen sus bocas`)
 
     })
 
