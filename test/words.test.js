@@ -152,11 +152,11 @@ describe(`words`, function() {
 
     })
 
-    it(`supports glosses`, async function() {
+    it(`supports (manual) glosses`, async function() {
 
       const scription = `
       \\w qasi hix cuyi
-      \\wlt man ERG he.went
+      \\wlt man <abbr>erg</abbr> he.went
       `
 
       const { dom } = await parse(scription, { glosses: true })
