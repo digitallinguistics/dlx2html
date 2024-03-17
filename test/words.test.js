@@ -147,7 +147,7 @@ describe(`words`, function() {
       const { dom } = await parse(scription, { glosses: true })
       const abbr    = findElement(dom, el => getTagName(el) === `abbr`)
 
-      expect(getTextContent(abbr)).to.equal(`ERG`)
+      expect(getTextContent(abbr)).to.equal(`erg`)
 
     })
 
@@ -288,7 +288,7 @@ describe(`words`, function() {
 
       expect(glosses).to.have.length(8)
       expect(getTextContent(person)).to.equal(`1`)
-      expect(getTextContent(num)).to.equal(`SG`)
+      expect(getTextContent(num)).to.equal(`sg`)
 
     })
 
@@ -306,6 +306,24 @@ describe(`words`, function() {
       const [person, num] = glosses
 
       expect(glosses).to.have.length(8)
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`sg`)
+
+    })
+
+    it(`option: glosses (lowercase smallcaps)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom, html } = await parse(scription, { glosses: true })
+      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
       expect(getTextContent(person)).to.equal(`1`)
       expect(getTextContent(num)).to.equal(`sg`)
 

@@ -15,13 +15,13 @@ export default function createGlossLine(
 
   const wrapGloss = gloss => {
     const title = abbreviations[gloss] ? `title='${ abbreviations[gloss] }'` : ``
-    return `<abbr ${ title }>${ gloss }</abbr>`
+    return `<abbr ${ title }>${ gloss.toLowerCase() }</abbr>`
   }
 
   if (glossesOption === true) {
     data = data
+    .replaceAll(numberRegExp, wrapGloss) // This replacement should come first, in order to avoid double-wrapping of number glosses.
     .replaceAll(glossRegExp, wrapGloss)
-    .replaceAll(numberRegExp, wrapGloss)
   }
 
   data = replaceHyphens(data)
