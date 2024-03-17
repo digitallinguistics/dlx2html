@@ -137,6 +137,20 @@ describe(`words`, function() {
 
     })
 
+    it(`supports glosses`, async function() {
+
+      const scription = `
+      \\w qasi hix cuyi
+      \\wlt man ERG he.went
+      `
+
+      const { dom, html } = await parse(scription, { glosses: true })
+      const abbr          = findElement(dom, el => getTagName(el) === `abbr`)
+
+      expect(getTextContent(abbr)).to.equal(`ERG`)
+
+    })
+
   })
 
   describe(`morphemic analysis`, function() {
