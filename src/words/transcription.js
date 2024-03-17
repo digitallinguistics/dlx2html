@@ -7,6 +7,7 @@ export default function createTranscription(data, { targetLang }) {
 
   for (const ortho in data) {
     const txn = data[ortho]
+    if (!txn) continue
     html += `<span class=w data-ortho='${ ortho }' ${ lang }>${ addEmphasis(txn) }</span>`
   }
 

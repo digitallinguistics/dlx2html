@@ -46,6 +46,21 @@ describe(`words`, function() {
 
   describe(`word transcription`, function() {
 
+    it(`has the correct number of lines`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you`
+
+      const { dom } = await parse(scription)
+      const word    = findElementByClass(dom, `word`)
+
+      expect(word.childNodes).to.have.length(2)
+
+    })
+
     it(`renders in multiple orthographies`, async function() {
 
       const scription = `
@@ -282,7 +297,7 @@ describe(`words`, function() {
       I love you
       `
 
-      const { dom }       = await parse(scription, { glosses: true })
+      const { dom, html }       = await parse(scription, { glosses: true })
       const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
       const [person, num] = glosses
 
