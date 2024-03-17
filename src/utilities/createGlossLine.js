@@ -2,7 +2,7 @@ import addEmphasis    from '../utilities/addEmphasis.js'
 import replaceHyphens from '../utilities/replaceHyphens.js'
 
 const glossRegExp  = /(?<gloss>[1-4]|[A-Z]+)/gv
-const numberRegExp = /\b(?<number>sg|du|pl)\b/gv
+const numberRegExp = /(?<=[1-4])(?<number>sg|du|pl)\b/giv
 
 export default function createGlossLine(
   data,
@@ -19,8 +19,9 @@ export default function createGlossLine(
   }
 
   if (glossesOption === true) {
+    // These replacements are sensitive to ordering.
     data = data
-    .replaceAll(numberRegExp, wrapGloss) // This replacement should come first, in order to avoid double-wrapping of number glosses.
+    .replaceAll(numberRegExp, wrapGloss)
     .replaceAll(glossRegExp, wrapGloss)
   }
 
