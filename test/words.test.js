@@ -144,8 +144,8 @@ describe(`words`, function() {
       \\wlt man ERG he.went
       `
 
-      const { dom, html } = await parse(scription, { glosses: true })
-      const abbr          = findElement(dom, el => getTagName(el) === `abbr`)
+      const { dom } = await parse(scription, { glosses: true })
+      const abbr    = findElement(dom, el => getTagName(el) === `abbr`)
 
       expect(getTextContent(abbr)).to.equal(`ERG`)
 
