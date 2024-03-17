@@ -286,14 +286,14 @@ describe(`utterance`, function() {
       \\m   ni-na-end-a
       \\gl  1sg.subj-pres-go-ind
       \\tln I am going
-      \\s   Hieber 2018: 1
+      \\s   Hieber (2018: 1)
       `
 
       const { dom } = await parse(scription)
       const source  = findElementByClass(dom, `ex-source`)
       const text    = getTextContent(source)
 
-      expect(text).to.equal(`(Hieber 2018: 1)`)
+      expect(text).to.equal(`Hieber (2018: 1)`)
 
     })
 
@@ -305,14 +305,14 @@ describe(`utterance`, function() {
       \\gl  1sg.subj-pres-go-ind
       \\tln I am going
       \\sp  Hamisi
-      \\s   Hieber 2018: 1
+      \\s   (Hieber 2018: 1)
       `
 
       const { dom } = await parse(scription)
       const source  = findElementByClass(dom, `ex-source`)
       const text    = getTextContent(source)
 
-      expect(text).to.equal(`Hamisi (Hieber 2018: 1)`)
+      expect(text).to.equal(`Hamisi; (Hieber 2018: 1)`)
 
     })
 

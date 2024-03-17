@@ -4,9 +4,9 @@ import replaceHyphens from '../utilities/replaceHyphens.js'
 const glossRegExp  = /(?<gloss>[1-4]|[A-Z]+)/gv
 const numberRegExp = /\b(?<number>sg|du|pl)\b/gv
 
-function createGlossLine(glosses, language, { abbreviations, glosses: glossesOption }) {
+function createGlossLine(glosses, analysisLang, { abbreviations, glosses: glossesOption }) {
 
-  const lang = language ? `lang='${ language }'` : ``
+  const lang = analysisLang ? `lang='${ analysisLang }'` : ``
 
   const wrapGloss = gloss => {
     const title = abbreviations[gloss] ? `title='${ abbreviations[gloss] }'` : ``
