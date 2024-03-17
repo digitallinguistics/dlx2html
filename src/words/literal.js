@@ -1,19 +1,19 @@
-import addEmphasis from '../utilities/addEmphasis.js'
+import createGlossLine from '../utilities/createGlossLine.js'
 
-export default function createLiteral(data, { analysisLang }) {
+const cssClass = `wlt`
+
+export default function createLiteral(data, options) {
 
   if (!data) return ``
 
   if (typeof data === `string`) {
-    const lang = analysisLang ? `lang='${ analysisLang }'` : ``
-    return `<span class=wlt ${ lang }>${ addEmphasis(data) }</span>`
+    return createGlossLine(data, cssClass, options.analysisLang, options)
   }
 
   let html = ``
 
   for (const lang in data) {
-    const tln = data[lang]
-    html += `<span class=wlt lang='${ lang }'>${ addEmphasis(tln) }</span>`
+    html += createGlossLine(data[lang], cssClass, lang, options)
   }
 
   return html
