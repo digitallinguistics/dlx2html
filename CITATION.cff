@@ -9,4 +9,4 @@ license:         MIT
 repository-code: 'https://github.com/digitallinguistics/dlx2html'
 title:           '@digitallinguistics/dlx2html'
 type:            software
-version:         0.1.1
+version:         0.2.1
