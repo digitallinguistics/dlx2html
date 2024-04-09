@@ -11,6 +11,7 @@ import createWords         from '../words/index.js'
 export default function convertUtterance(u, options) {
 
   const header        = createHeader(u.metadata, options)
+  const { id }        = u
   const literal       = createLiteral(u.literal, options)
   const phonetic      = createPhonetic(u.phonetic, options)
   const source        = createSource(u.speaker, u.source)
@@ -21,7 +22,8 @@ export default function convertUtterance(u, options) {
   const words         = createWords(u.words, options)
 
   const { classes, tag } = options
-  const classString      = classes.join(` `)
+  const classesString    = classes.join(` `)
+  const idString         = id ? `id='${ id }'` : ``
 
   const lines = [
     header,
@@ -36,6 +38,6 @@ export default function convertUtterance(u, options) {
   ].filter(Boolean)
   .join(``)
 
-  return `<${ tag } class='${ classString }'>${ lines }</${ tag }>`
+  return `<${ tag } class='${ classesString }' ${ idString }>${ lines }</${ tag }>`
 
 }

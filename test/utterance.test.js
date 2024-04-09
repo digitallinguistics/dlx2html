@@ -59,6 +59,26 @@ describe(`utterance`, function() {
 
   })
 
+  describe(`id`, function() {
+
+    it(`renders`, async function() {
+
+      const scription = `
+      \\id  17
+      \\txn ninakupenda
+      \\m   ni-na-ku-pend-a
+      \\gl  1SG.SUBJ-PRES-1SG.OBJ-love-IND
+      \\tln I love you
+      `
+
+      const { dom } = await parse(scription)
+      const wrapper = findElement(dom, el => getAttribute(el, `id`) === `17`)
+
+      expect(wrapper).to.exist
+
+    })
+
+  })
 
   describe(`literal translation`, function() {
 
