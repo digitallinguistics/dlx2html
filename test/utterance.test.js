@@ -131,6 +131,56 @@ describe(`utterance`, function() {
 
   })
 
+  describe(`phonemic transcription`, function() {
+
+    it(`produces one line per orthography`, async function() {
+
+      const scription = `
+      \\txn-mod  waxdungu qasi
+      \\txn-swad wašdungu ʔasi
+      \\txn-apa  waštʼunkʼu ʔasi
+      \\m        waxt-qungu qasi
+      \\gl       day-one    man
+      \\tln      one day a man
+      `
+
+      const { dom } = await parse(scription)
+      const [ex] = dom.childNodes
+      const transcripts = findElementsByClass(ex, `txn`)
+
+      expect(transcripts).to.have.length(3)
+
+      const [mod, swad, apa] = transcripts
+
+      expect(getAttribute(mod, `data-ortho`)).to.equal(`mod`)
+      expect(getAttribute(swad, `data-ortho`)).to.equal(`swad`)
+      expect(getAttribute(apa, `data-ortho`)).to.equal(`apa`)
+
+      expect(getTextContent(mod)).to.equal(`waxdungu qasi`)
+      expect(getTextContent(swad)).to.equal(`wašdungu ʔasi`)
+      expect(getTextContent(apa)).to.equal(`waštʼunkʼu ʔasi`)
+
+    })
+
+    it(`renders emphasis`, async function() {
+
+      const scription = `
+      \\txn  wax*d*ungu qasi
+      \\m    waxt-qungu qasi
+      \\gl   day-one    man
+      \\tln  one day a man
+      `
+
+      const { dom } = await parse(scription)
+      const txn = findElementByClass(dom, `txn`)
+      const b = findElement(txn, el => getTagName(el) === `b`)
+
+      expect(getTextContent(b)).to.equal(`d`)
+
+    })
+
+  })
+
   describe(`phonetic transcription`, function() {
 
     it(`renders`, async function() {
@@ -195,56 +245,6 @@ describe(`utterance`, function() {
       const phon    = findElementByClass(dom, `phon`)
 
       expect(getAttribute(phon, `lang`)).to.equal(`guz-fonipa`)
-
-    })
-
-  })
-
-  describe(`phonemic transcription`, function() {
-
-    it(`produces one line per orthography`, async function() {
-
-      const scription = `
-      \\txn-mod  waxdungu qasi
-      \\txn-swad wašdungu ʔasi
-      \\txn-apa  waštʼunkʼu ʔasi
-      \\m        waxt-qungu qasi
-      \\gl       day-one    man
-      \\tln      one day a man
-      `
-
-      const { dom }     = await parse(scription)
-      const [ex]        = dom.childNodes
-      const transcripts = findElementsByClass(ex, `txn`)
-
-      expect(transcripts).to.have.length(3)
-
-      const [mod, swad, apa] = transcripts
-
-      expect(getAttribute(mod, `data-ortho`)).to.equal(`mod`)
-      expect(getAttribute(swad, `data-ortho`)).to.equal(`swad`)
-      expect(getAttribute(apa, `data-ortho`)).to.equal(`apa`)
-
-      expect(getTextContent(mod)).to.equal(`waxdungu qasi`)
-      expect(getTextContent(swad)).to.equal(`wašdungu ʔasi`)
-      expect(getTextContent(apa)).to.equal(`waštʼunkʼu ʔasi`)
-
-    })
-
-    it(`renders emphasis`, async function() {
-
-      const scription = `
-      \\txn  wax*d*ungu qasi
-      \\m    waxt-qungu qasi
-      \\gl   day-one    man
-      \\tln  one day a man
-      `
-
-      const { dom } = await parse(scription)
-      const txn     = findElementByClass(dom, `txn`)
-      const b       = findElement(txn, el => getTagName(el) === `b`)
-
-      expect(getTextContent(b)).to.equal(`d`)
 
     })
 

@@ -44,58 +44,151 @@ describe(`words`, function() {
 
   })
 
-  describe(`word transcription`, function() {
+  describe(`glosses`, function() {
 
-    it(`has the correct number of lines`, async function() {
+    it(`renders (with non-breaking hyphens)`, async function() {
 
       const scription = `
       ninakupenda
       ni-na-ku-pend-a
       1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you`
+      I love you
+      `
 
       const { dom } = await parse(scription)
-      const word    = findElementByClass(dom, `word`)
+      const morphemes = findElementByClass(dom, `glosses`)
 
-      expect(word.childNodes).to.have.length(2)
+      expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
 
     })
 
-    it(`renders in multiple orthographies`, async function() {
+    it(`supports multiple analysis languages`, async function() {
 
       const scription = `
-      \\w-mod  waxdungu   qasi
-      \\w-swad wašdungu   ʔasi
-      \\m      waxt-qungu qasi
-      \\gl     day-one    man
-      \\tln    one day a man
+      \\txn   ninakupenda
+      \\m     ni-na-ku-pend-a
+      \\gl-en 1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      \\gl-sp 1SG.SJ-PRES-2SG.OJ-amar-IND
+      \\tln   I love you
       `
 
-      const { dom }                 = await parse(scription)
-      const wordsContainer          = findElementByClass(dom, `words`)
-      const [firstWord, secondWord] = wordsContainer.childNodes.filter(node => node.tagName === `li`)
+      const { dom } = await parse(scription)
+      const [firstGloss, secondGloss] = findElementsByClass(dom, `glosses`)
 
-      const firstText = getTextContent(firstWord)
-      expect(firstText).to.include(`waxdungu`)
-      expect(firstText).to.include(`wašdungu`)
-
-      const secondText = getTextContent(secondWord)
-      expect(secondText).to.include(`qasi`)
-      expect(secondText).to.include(`ʔasi`)
+      expect(getTextContent(firstGloss)).to.include(`SUBJ`)
+      expect(getTextContent(secondGloss)).to.include(`SJ`)
 
     })
 
     it(`supports emphasis`, async function() {
 
       const scription = `
-      \\w   *waxdungu* qasi
-      \\wlt *one.day*  man
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-*2SG.OBJ*-love-IND
+      I love you
       `
 
       const { dom } = await parse(scription)
-      const b       = findElement(dom, el => getTagName(el) === `b`)
+      const b = findElement(dom, el => getTagName(el) === `b`)
 
-      expect(getTextContent(b)).to.equal(`waxdungu`)
+      expect(getTextContent(b)).to.equal(`2SG.OBJ`)
+
+    })
+
+    it(`option: glosses = false (default)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom } = await parse(scription)
+      const abbr = findElement(dom, el => getTagName(el) === `abbr`)
+
+      expect(abbr).not.to.exist
+
+    })
+
+    it(`option: glosses = true`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom, html } = await parse(scription, { glosses: true })
+      const glosses = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(glosses).to.have.length(8)
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`sg`)
+
+    })
+
+    it(`option: glosses (lowercase glosses)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1sg.SUBJ-PRES-2sg.OBJ-love-IND
+      I love you
+      `
+
+      const { dom } = await parse(scription, { glosses: true })
+      const glosses = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(glosses).to.have.length(8)
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`sg`)
+
+    })
+
+    it(`option: glosses (lowercase smallcaps)`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const { dom, html } = await parse(scription, { glosses: true })
+      const glosses = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(getTextContent(person)).to.equal(`1`)
+      expect(getTextContent(num)).to.equal(`sg`)
+
+    })
+
+    it(`option: abbreviations`, async function() {
+
+      const scription = `
+      ninakupenda
+      ni-na-ku-pend-a
+      1SG.SUBJ-PRES-2SG.OBJ-love-IND
+      I love you
+      `
+
+      const abbreviations = {
+        1:  `first person`,
+        SG: `singular`,
+      }
+
+      const { dom } = await parse(scription, { abbreviations, glosses: true })
+      const glosses = findElements(dom, el => getTagName(el) === `abbr`)
+      const [person, num] = glosses
+
+      expect(glosses).to.have.length(8)
+      expect(getAttribute(person, `title`)).to.equal(`first person`)
+      expect(getAttribute(num, `title`)).to.equal(`singular`)
 
     })
 
@@ -220,151 +313,58 @@ describe(`words`, function() {
 
   })
 
-  describe(`glosses`, function() {
+  describe(`word transcription`, function() {
 
-    it(`renders (with non-breaking hyphens)`, async function() {
+    it(`has the correct number of lines`, async function() {
 
       const scription = `
       ninakupenda
       ni-na-ku-pend-a
       1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you
-      `
+      I love you`
 
-      const { dom }   = await parse(scription)
-      const morphemes = findElementByClass(dom, `glosses`)
+      const { dom } = await parse(scription)
+      const word = findElementByClass(dom, `word`)
 
-      expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
+      expect(word.childNodes).to.have.length(2)
 
     })
 
-    it(`supports multiple analysis languages`, async function() {
+    it(`renders in multiple orthographies`, async function() {
 
       const scription = `
-      \\txn   ninakupenda
-      \\m     ni-na-ku-pend-a
-      \\gl-en 1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      \\gl-sp 1SG.SJ-PRES-2SG.OJ-amar-IND
-      \\tln   I love you
+      \\w-mod  waxdungu   qasi
+      \\w-swad wašdungu   ʔasi
+      \\m      waxt-qungu qasi
+      \\gl     day-one    man
+      \\tln    one day a man
       `
 
-      const { dom }                   = await parse(scription)
-      const [firstGloss, secondGloss] = findElementsByClass(dom, `glosses`)
+      const { dom } = await parse(scription)
+      const wordsContainer = findElementByClass(dom, `words`)
+      const [firstWord, secondWord] = wordsContainer.childNodes.filter(node => node.tagName === `li`)
 
-      expect(getTextContent(firstGloss)).to.include(`SUBJ`)
-      expect(getTextContent(secondGloss)).to.include(`SJ`)
+      const firstText = getTextContent(firstWord)
+      expect(firstText).to.include(`waxdungu`)
+      expect(firstText).to.include(`wašdungu`)
+
+      const secondText = getTextContent(secondWord)
+      expect(secondText).to.include(`qasi`)
+      expect(secondText).to.include(`ʔasi`)
 
     })
 
     it(`supports emphasis`, async function() {
 
       const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1SG.SUBJ-PRES-*2SG.OBJ*-love-IND
-      I love you
+      \\w   *waxdungu* qasi
+      \\wlt *one.day*  man
       `
 
       const { dom } = await parse(scription)
-      const b       = findElement(dom, el => getTagName(el) === `b`)
+      const b = findElement(dom, el => getTagName(el) === `b`)
 
-      expect(getTextContent(b)).to.equal(`2SG.OBJ`)
-
-    })
-
-    it(`option: glosses = false (default)`, async function() {
-
-      const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you
-      `
-
-      const { dom } = await parse(scription)
-      const abbr    = findElement(dom, el => getTagName(el) === `abbr`)
-
-      expect(abbr).not.to.exist
-
-    })
-
-    it(`option: glosses = true`, async function() {
-
-      const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you
-      `
-
-      const { dom, html }       = await parse(scription, { glosses: true })
-      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
-      const [person, num] = glosses
-
-      expect(glosses).to.have.length(8)
-      expect(getTextContent(person)).to.equal(`1`)
-      expect(getTextContent(num)).to.equal(`sg`)
-
-    })
-
-    it(`option: glosses (lowercase glosses)`, async function() {
-
-      const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1sg.SUBJ-PRES-2sg.OBJ-love-IND
-      I love you
-      `
-
-      const { dom }       = await parse(scription, { glosses: true })
-      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
-      const [person, num] = glosses
-
-      expect(glosses).to.have.length(8)
-      expect(getTextContent(person)).to.equal(`1`)
-      expect(getTextContent(num)).to.equal(`sg`)
-
-    })
-
-    it(`option: glosses (lowercase smallcaps)`, async function() {
-
-      const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you
-      `
-
-      const { dom, html } = await parse(scription, { glosses: true })
-      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
-      const [person, num] = glosses
-
-      expect(getTextContent(person)).to.equal(`1`)
-      expect(getTextContent(num)).to.equal(`sg`)
-
-    })
-
-    it(`option: abbreviations`, async function() {
-
-      const scription = `
-      ninakupenda
-      ni-na-ku-pend-a
-      1SG.SUBJ-PRES-2SG.OBJ-love-IND
-      I love you
-      `
-
-      const abbreviations = {
-        1:  `first person`,
-        SG:  `singular`,
-      }
-
-      const { dom }       = await parse(scription, { abbreviations, glosses: true })
-      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
-      const [person, num] = glosses
-
-      expect(glosses).to.have.length(8)
-      expect(getAttribute(person, `title`)).to.equal(`first person`)
-      expect(getAttribute(num, `title`)).to.equal(`singular`)
+      expect(getTextContent(b)).to.equal(`waxdungu`)
 
     })
 
