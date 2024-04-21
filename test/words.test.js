@@ -55,7 +55,7 @@ describe(`words`, function() {
       I love you
       `
 
-      const { dom } = await parse(scription)
+      const { dom }   = await parse(scription)
       const morphemes = findElementByClass(dom, `glosses`)
 
       expect(getTextContent(morphemes)).to.equal(`1SG.SUBJ‑PRES‑2SG.OBJ‑love‑IND`) // non-breaking hyphens
@@ -72,7 +72,7 @@ describe(`words`, function() {
       \\tln   I love you
       `
 
-      const { dom } = await parse(scription)
+      const { dom }                   = await parse(scription)
       const [firstGloss, secondGloss] = findElementsByClass(dom, `glosses`)
 
       expect(getTextContent(firstGloss)).to.include(`SUBJ`)
@@ -90,7 +90,7 @@ describe(`words`, function() {
       `
 
       const { dom } = await parse(scription)
-      const b = findElement(dom, el => getTagName(el) === `b`)
+      const b       = findElement(dom, el => getTagName(el) === `b`)
 
       expect(getTextContent(b)).to.equal(`2SG.OBJ`)
 
@@ -106,7 +106,7 @@ describe(`words`, function() {
       `
 
       const { dom } = await parse(scription)
-      const abbr = findElement(dom, el => getTagName(el) === `abbr`)
+      const abbr    = findElement(dom, el => getTagName(el) === `abbr`)
 
       expect(abbr).not.to.exist
 
@@ -121,8 +121,8 @@ describe(`words`, function() {
       I love you
       `
 
-      const { dom, html } = await parse(scription, { glosses: true })
-      const glosses = findElements(dom, el => getTagName(el) === `abbr`)
+      const { dom }       = await parse(scription, { glosses: true })
+      const glosses       = findElements(dom, el => getTagName(el) === `abbr`)
       const [person, num] = glosses
 
       expect(glosses).to.have.length(8)
