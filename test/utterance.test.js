@@ -28,7 +28,12 @@ describe(`utterance`, function() {
       expect(getAttribute(lat, `lang`)).to.equal(`lat`)
       expect(getAttribute(eng, `lang`)).to.equal(`eng`)
       expect(getTextContent(lat)).to.include(`mittit`)
-      expect(getTextContent(eng)).to.include(`sends`)
+
+      const engText = getTextContent(eng)
+
+      expect(engText.startsWith(`‘`)).to.be.true
+      expect(engText).to.include(`sends`)
+      expect(engText.endsWith(`’`)).to.be.true
 
     })
 
@@ -104,8 +109,13 @@ describe(`utterance`, function() {
 
       expect(getAttribute(engLiteral, `lang`)).to.equal(`en`)
       expect(getAttribute(spaLiteral, `lang`)).to.equal(`sp`)
-      expect(getTextContent(engLiteral)).to.equal(`they ate each other's mouths`)
-      expect(getTextContent(spaLiteral)).to.equal(`se comen sus bocas`)
+      expect(getTextContent(spaLiteral)).to.include(`se comen sus bocas`)
+
+      const engText = getTextContent(engLiteral)
+
+      expect(engText.startsWith(`‘`)).to.be.true
+      expect(engText).to.include(`they ate each other's mouths`)
+      expect(engText.endsWith(`’`)).to.be.true
 
     })
 
