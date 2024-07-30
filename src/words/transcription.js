@@ -1,8 +1,8 @@
 import addEmphasis from '../utilities/addEmphasis.js'
 
-export default function createTranscription(data, { targetLang }) {
+export default function createTranscription(data, { language, targetLang }) {
 
-  const lang = targetLang ? `lang='${ targetLang }'` : ``
+  const lang = (language ?? targetLang) ? `lang='${ language ?? targetLang }'` : ``
   let html = ``
 
   for (const ortho in data) {

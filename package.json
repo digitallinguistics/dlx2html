@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@digitallinguistics/eslint-config": "^0.3.0",
-    "@digitallinguistics/scription2dlx": "^0.13.2",
+    "@digitallinguistics/scription2dlx": "^0.14.0",
     "@digitallinguistics/styles": "^2.0.3",
     "@web/parse5-utils": "^2.0.2",
     "chai": "^4.3.10",

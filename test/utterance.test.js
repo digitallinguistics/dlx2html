@@ -85,6 +85,31 @@ describe(`utterance`, function() {
 
   })
 
+  describe(`language`, function() {
+
+    it(`renders`, async function() {
+
+      const language = `swa`
+
+      const scription = `
+      \\lg  ${ language }
+      \\txn ninakupenda
+      \\m   ni-na-ku-pend-a
+      \\gl  1SG.SUBJ-PRES-1SG.OBJ-love-IND
+      \\tln I love you`
+
+      const { dom, html } = await parse(scription)
+
+      const txn       = findElementByClass(dom, `txn`)
+      const morphemes = findElementByClass(dom, `m`)
+
+      expect(getAttribute(txn, `lang`)).to.equal(language)
+      expect(getAttribute(morphemes, `lang`)).to.equal(language)
+
+    })
+
+  })
+
   describe(`literal translation`, function() {
 
     it(`renders`, async function() {

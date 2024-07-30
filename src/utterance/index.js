@@ -10,8 +10,11 @@ import createWords         from '../words/index.js'
 
 export default function convertUtterance(u, options) {
 
+  const { id, language } = u
+
+  options.language = language
+
   const header        = createHeader(u.metadata, options)
-  const { id }        = u
   const literal       = createLiteral(u.literal, options)
   const phonetic      = createPhonetic(u.phonetic, options)
   const source        = createSource(u.speaker, u.source)

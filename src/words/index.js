@@ -11,7 +11,6 @@ export default function createWords(words, options) {
 
   for (const word of words) {
 
-
     const glosses       = createGlosses(word.gloss, options)
     const literal       = createLiteral(word.literal, options)
     const morphemes     = createMorphemes(word.analysis, options)

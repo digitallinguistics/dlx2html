@@ -137,6 +137,7 @@ You can apply three different types of emphasis to the data:
 
 ### Additional Notes
 
+- The language code (`\lg`) is not displayed. It is merely used to set the `lang` attribute on elements where appropriate. To display the language of an utterance, use the metadata field (`\#`).
 - The speaker (`\sp`) and source (`\s`) data are combined into a single element strutured as follows: `<p class=ex-source>{speaker} ({source})</p>`.
 - Notes fields (`\n`) are not added to the HTML by default.
 - Individual glosses receive the `.gl` class.

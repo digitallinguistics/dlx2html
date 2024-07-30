@@ -1,6 +1,6 @@
 import addEmphasis from '../utilities/addEmphasis.js'
 
-export default function createTranscript(data, { targetLang }) {
+export default function createTranscript(data, { language, targetLang }) {
 
   if (!data) return ``
 
@@ -8,7 +8,7 @@ export default function createTranscript(data, { targetLang }) {
 
   for (const ortho in data) {
     const transcript = data[ortho]
-    const lang = targetLang ? `lang='${ targetLang }'` : ``
+    const lang = (language ?? targetLang) ? `lang='${ language ?? targetLang }'` : ``
     html += `<p class=trs data-ortho='${ ortho }' ${ lang }>${ addEmphasis(transcript) }</p>`
   }
 
