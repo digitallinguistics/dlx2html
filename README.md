@@ -133,7 +133,7 @@ You can apply three different types of emphasis to the data:
 | `***text***` | `<strong>text</strong>` | <strong>text</strong> |
 | `**text**`   | `<em>text</em>`         | <em>text</em>         |
 | `*text*`     | `<b>text</b>`           | <b>text</b>           |
-| `_text_`     | `<u>text</u>`           | <u>text</u>           |
+| `_text_`     | `<u>text</u>`           | <ins>text</ins>       |
 
 ### Additional Notes
 
