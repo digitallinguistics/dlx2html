@@ -1,6 +1,6 @@
 # dlx2html
 
-A JavaScript library for converting linguistic to HTML for presenting on the web.
+A JavaScript library for converting linguistic data to HTML for presenting on the web.
 
 Written using modern ES modules, useable in both Node and the browser.
 
